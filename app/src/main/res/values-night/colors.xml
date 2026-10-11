@@ -1,54 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand / Primary Palette (Indigo - Dark Mode) -->
-    <color name="primary">#818CF8</color>
-    <color name="on_primary">#1E1B4B</color>
-    <color name="primary_container">#3730A3</color>
-    <color name="on_primary_container">#E0E7FF</color>
+    <!-- GDG Brand Accent Palette -->
+    <color name="gdg_blue">#8AB4F8</color>
+    <color name="gdg_red">#F28B82</color>
+    <color name="gdg_yellow">#FDD663</color>
+    <color name="gdg_green">#81C995</color>
+    <color name="gdg_purple">#A5A8F9</color>
 
-    <!-- Secondary Palette (Emerald - Success / Streaks) -->
-    <color name="secondary">#34D399</color>
-    <color name="on_secondary">#064E3B</color>
-    <color name="secondary_container">#065F46</color>
-    <color name="on_secondary_container">#D1FAE5</color>
+    <!-- Material 3 Night Scheme -->
+    <!-- Primary (GDG Blue - High Contrast on Dark) -->
+    <color name="primary">#8AB4F8</color>
+    <color name="on_primary">#041E49</color>
+    <color name="primary_container">#174EA6</color>
+    <color name="on_primary_container">#D3E3FD</color>
 
-    <!-- Tertiary Palette (Amber - Fire / Milestones) -->
-    <color name="tertiary">#FBBF24</color>
-    <color name="on_tertiary">#78350F</color>
-    <color name="tertiary_container">#92400E</color>
-    <color name="on_tertiary_container">#FEF3C7</color>
+    <!-- Secondary (GDG Green) -->
+    <color name="secondary">#81C995</color>
+    <color name="on_secondary">#0D652D</color>
+    <color name="secondary_container">#137333</color>
+    <color name="on_secondary_container">#CEEAD6</color>
 
-    <!-- Neutral & Surface (Dark Mode) -->
-    <color name="background">#0B0F19</color>
-    <color name="on_background">#F1F5F9</color>
-    <color name="surface">#111827</color>
-    <color name="on_surface">#F1F5F9</color>
-    <color name="surface_variant">#1F2937</color>
-    <color name="on_surface_variant">#9CA3AF</color>
-    <color name="outline">#374151</color>
-    <color name="outline_variant">#1F2937</color>
+    <!-- Tertiary (GDG Yellow) -->
+    <color name="tertiary">#FDD663</color>
+    <color name="on_tertiary">#202124</color>
+    <color name="tertiary_container">#7C4B00</color>
+    <color name="on_tertiary_container">#FEF7E0</color>
 
-    <!-- Error Palette -->
-    <color name="error">#F87171</color>
-    <color name="on_error">#7F1D1D</color>
-    <color name="error_container">#991B1B</color>
-    <color name="on_error_container">#FEE2E2</color>
+    <!-- Error (GDG Red) -->
+    <color name="error">#F28B82</color>
+    <color name="on_error">#601410</color>
+    <color name="error_container">#8C1D18</color>
+    <color name="on_error_container">#FCE8E6</color>
+
+    <!-- Background, Surface, Text & Outline (Dark Mode) -->
+    <color name="background">#0F0F0F</color>
+    <color name="on_background">#F5F5F5</color>
+    <color name="surface">#1A1A1A</color>
+    <color name="on_surface">#F5F5F5</color>
+    <color name="surface_variant">#282828</color>
+    <color name="on_surface_variant">#C4C7C5</color>
+    <color name="outline">#FFFFFF</color>
+    <color name="outline_variant">#444746</color>
 
     <!-- Habit Day Status Palette (Dark Mode) -->
-    <color name="status_complete">#34D399</color>
-    <color name="status_complete_container">#064E3B</color>
-    <color name="status_partial">#FBBF24</color>
-    <color name="status_partial_container">#78350F</color>
-    <color name="status_missed">#F87171</color>
-    <color name="status_missed_container">#7F1D1D</color>
-    <color name="status_not_scheduled">#6B7280</color>
-    <color name="status_not_scheduled_container">#1F2937</color>
-    <color name="status_future">#374151</color>
-    <color name="status_future_container">#111827</color>
+    <color name="status_complete">#81C995</color>
+    <color name="status_complete_container">#137333</color>
+    <color name="status_partial">#FDD663</color>
+    <color name="status_partial_container">#7C4B00</color>
+    <color name="status_missed">#F28B82</color>
+    <color name="status_missed_container">#8C1D18</color>
+    <color name="status_not_scheduled">#5F6368</color>
+    <color name="status_not_scheduled_container">#282828</color>
+    <color name="status_future">#3C4043</color>
+    <color name="status_future_container">#1A1A1A</color>
 
     <!-- Streak Fire Indicator -->
-    <color name="streak_fire">#FF9E40</color>
-    <color name="streak_fire_container">#7C2D12</color>
+    <color name="streak_fire">#F28B82</color>
+    <color name="streak_fire_container">#8C1D18</color>
 
     <!-- Static Palette -->
     <color name="white">#FFFFFF</color>
