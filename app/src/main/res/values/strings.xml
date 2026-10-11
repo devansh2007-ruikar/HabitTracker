@@ -126,6 +126,42 @@
     <string name="theme_dark">Dark</string>
     <string name="about_title">About Habit Tracker</string>
     <string name="about_desc">Built for GDG RBU Recruitment. Pure Java 17 offline-first architecture with Room, MVVM, Material 3, and deterministic streak calculators.</string>
+    <string name="about_built_by">Built by Devansh Ruikar for GDG RBU Recruitment 2026-27</string>
+    <string name="about_version_format">Version %1$s</string>
+    <string name="about_github_url">https://github.com/devansh2007-ruikar/HabitTracker</string>
+    <string name="about_offline_note">Works fully offline, no account needed</string>
+    <string name="footer_made_for_gdg">Made for GDG RBU</string>
+
+    <!-- Settings & Reminders Details -->
+    <string name="settings_reminders_title">Reminders &amp; Notifications</string>
+    <string name="settings_reminders_desc">Alarms fire via AlarmManager at your scheduled habit times with \'Mark done\' and \'Open\' actions.</string>
+    <string name="settings_btn_test_reminder">Test Reminder (in 10s)</string>
+    <string name="settings_test_reminder_desc">Test Reminder in 10 seconds</string>
+    <string name="settings_btn_exact_alarm">Exact Alarms Settings</string>
+    <string name="settings_exact_alarm_desc">Exact alarm settings</string>
+    <string name="settings_grant_exact_alarm">Grant Exact Alarm Permission</string>
+    <string name="settings_notif_denied">Notification permission denied. Reminders cannot be shown.</string>
+    <string name="settings_exact_alarm_dialog_title">Exact Alarms Not Allowed</string>
+    <string name="settings_exact_alarm_dialog_msg">Exact alarms are restricted by the system. The reminder will still arrive using windowed delivery, or you can grant exact alarms in Settings.</string>
+    <string name="settings_open_settings">Open Settings</string>
+    <string name="settings_continue_anyway">Continue Anyway</string>
+    <string name="settings_test_reminder_toast">⏰ Test reminder scheduled! It will fire in 10 seconds.</string>
+
+    <!-- Settings About & Architecture Details -->
+    <string name="cd_gdg_logo">GDG RBU Logo</string>
+    <string name="about_architecture_title">Technical Architecture:</string>
+    <string name="about_architecture_desc">• Pure Java 17 (Zero Kotlin, Zero Android in :core)\n• Room SQLite with CASCADE delete &amp; UNIQUE index\n• Deterministic StreakCalculator &amp; StatsCalculator\n• Material 3 DayNight with ViewBinding &amp; MVVM\n• MPAndroidChart for weekly analytics</string>
+
+    <!-- Backup & Restore Dialogs -->
+    <string name="backup_export_success">✅ Backup exported successfully!</string>
+    <string name="backup_export_failed">Export failed: %s</string>
+    <string name="backup_import_failed_title">Import Failed</string>
+    <string name="backup_import_failed_msg">The selected file is not a valid Habit Tracker backup:\n\n%s</string>
+    <string name="backup_restore_dialog_title">Restore Backup</string>
+    <string name="backup_restore_dialog_msg">Found %1$d habits and %2$d tasks in backup.\n\nChoose restore strategy:</string>
+    <string name="backup_merge_option">Merge (Keep Existing)</string>
+    <string name="backup_replace_option">Replace (Wipe Existing)</string>
+    <string name="backup_restored_summary">Restored %1$d habits, %2$d logs, and %3$d tasks!</string>
 
     <!-- Bonus Features Strings -->
     <string name="widget_description">Shows today\'s scheduled habits with tap-to-complete.</string>

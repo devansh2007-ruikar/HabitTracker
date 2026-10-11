@@ -15,19 +15,21 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Theme Selection Card -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!--  1. Theme Selection Card                                    -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <FrameLayout
+            android:id="@+id/card_theme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:cardBackgroundColor="?attr/colorSurface">
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_brutalist_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -35,6 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/theme_title"
+                    android:fontFamily="@font/space_grotesk"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold" />
@@ -50,47 +53,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:checked="true"
+                        android:fontFamily="@font/inter"
                         android:text="@string/theme_system" />
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:id="@+id/rb_theme_light"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:fontFamily="@font/inter"
                         android:text="@string/theme_light" />
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:id="@+id/rb_theme_dark"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:fontFamily="@font/inter"
                         android:text="@string/theme_dark" />
 
                 </RadioGroup>
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
 
-        <!-- Reminders & Notifications Card -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!--  2. Reminders & Notifications Card                          -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <FrameLayout
+            android:id="@+id/card_reminders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:cardBackgroundColor="?attr/colorSurface">
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_brutalist_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reminders &amp; Notifications"
+                    android:text="@string/settings_reminders_title"
+                    android:fontFamily="@font/space_grotesk"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold" />
@@ -99,49 +107,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Alarms fire via AlarmManager at your scheduled habit times with 'Mark done' and 'Open' actions."
+                    android:text="@string/settings_reminders_desc"
+                    android:fontFamily="@font/inter"
                     android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                     android:textColor="?attr/colorOnSurfaceVariant" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_test_reminder"
-                    style="@style/Widget.Material3.Button.TonalButton"
+                    style="@style/Widget.HabitTracker.Button"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_marginTop="12dp"
-                    android:contentDescription="Test Reminder in 10 seconds"
-                    android:text="Test Reminder (in 10s)"
+                    android:layout_marginTop="14dp"
+                    android:contentDescription="@string/settings_test_reminder_desc"
+                    android:text="@string/settings_btn_test_reminder"
                     app:icon="@drawable/ic_alarm" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_exact_alarm_settings"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.HabitTracker.Button.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
-                    android:contentDescription="Exact alarm settings"
-                    android:text="Exact Alarms Settings"
+                    android:layout_marginTop="10dp"
+                    android:contentDescription="@string/settings_exact_alarm_desc"
+                    android:text="@string/settings_btn_exact_alarm"
                     android:visibility="gone"
                     tools:visibility="visible" />
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
 
-        <!-- Backup & Restore (JSON) Card -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!--  3. Backup & Restore (JSON) Card                            -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <FrameLayout
+            android:id="@+id/card_backup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:cardBackgroundColor="?attr/colorSurface">
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_brutalist_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -149,6 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/backup_title"
+                    android:fontFamily="@font/space_grotesk"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold" />
@@ -158,90 +169,172 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/backup_desc"
+                    android:fontFamily="@font/inter"
                     android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                     android:textColor="?attr/colorOnSurfaceVariant" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_export_backup"
-                    style="@style/Widget.Material3.Button.TonalButton"
+                    style="@style/Widget.HabitTracker.Button"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="14dp"
                     android:text="@string/btn_export_backup"
                     app:icon="@drawable/ic_archive" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_import_backup"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.HabitTracker.Button.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
                     android:text="@string/btn_import_backup"
                     app:icon="@drawable/ic_unarchive" />
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
 
-        <!-- About GDG RBU Recruitment Card -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!--  4. About & GDG RBU Recruitment Credit Card                 -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <FrameLayout
+            android:id="@+id/card_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:cardBackgroundColor="?attr/colorSurface">
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_brutalist_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
+
+                <!-- GDG RBU Logo Vector (Credit only, never app icon) -->
+                <ImageView
+                    android:id="@+id/iv_gdg_logo"
+                    android:layout_width="@dimen/gdg_logo_width"
+                    android:layout_height="@dimen/gdg_logo_height"
+                    android:contentDescription="@string/cd_gdg_logo"
+                    app:srcCompat="@drawable/ic_gdg_rbu_logo" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:text="@string/about_title"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_about_credit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="@string/about_desc"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
+                    android:gravity="center"
+                    android:text="@string/about_built_by"
+                    android:fontFamily="@font/space_grotesk"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/tv_app_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:textSize="13sp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="Version 1.0 (Build 1)" />
+
+                <!-- Clickable GitHub Repository Link -->
+                <TextView
+                    android:id="@+id/tv_github_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:fontFamily="@font/space_grotesk"
+                    android:text="@string/about_github_url"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <!-- Fully Offline Pill Badge -->
+                <TextView
+                    android:id="@+id/tv_offline_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_pill_badge"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:fontFamily="@font/inter"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/status_complete"
+                    android:text="@string/about_offline_note" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="14dp"
                     android:background="?attr/colorOutlineVariant" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Technical Architecture:"
+                    android:text="@string/about_architecture_title"
+                    android:fontFamily="@font/space_grotesk"
                     android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="• Pure Java 17 (Zero Kotlin, Zero Android in :core)\n• Room SQLite with CASCADE delete &amp; UNIQUE index\n• Deterministic StreakCalculator &amp; StatsCalculator\n• Material 3 DayNight with ViewBinding &amp; MVVM\n• MPAndroidChart for weekly analytics"
+                    android:fontFamily="@font/inter"
+                    android:text="@string/about_architecture_desc"
                     android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                     android:textColor="?attr/colorOnSurfaceVariant" />
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!--  Footer: Made for GDG RBU                                   -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <TextView
+            android:id="@+id/tv_footer_credit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/footer_made_for_gdg"
+            android:fontFamily="@font/space_grotesk"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
     </LinearLayout>
 

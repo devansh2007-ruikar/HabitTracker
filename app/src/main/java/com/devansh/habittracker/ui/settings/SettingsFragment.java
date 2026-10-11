@@ -81,12 +81,21 @@ public class SettingsFragment extends Fragment {
         setupThemeToggles();
         setupRemindersSection();
         setupBackupSection();
+        setupAboutSection();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         checkExactAlarmPermission();
+    }
+
+    private void setupAboutSection() {
+        binding.tvAppVersion.setText(getString(R.string.about_version_format, com.devansh.habittracker.BuildConfig.VERSION_NAME));
+        binding.tvGithubLink.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(getString(R.string.about_github_url)));
+            startActivity(intent);
+        });
     }
 
     private void setupThemeToggles() {
@@ -137,7 +146,7 @@ public class SettingsFragment extends Fragment {
             AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
                 binding.btnExactAlarmSettings.setVisibility(View.VISIBLE);
-                binding.btnExactAlarmSettings.setText("Grant Exact Alarm Permission");
+                binding.btnExactAlarmSettings.setText(R.string.settings_grant_exact_alarm);
             } else {
                 binding.btnExactAlarmSettings.setVisibility(View.GONE);
             }
@@ -152,13 +161,13 @@ public class SettingsFragment extends Fragment {
             AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
                 new MaterialAlertDialogBuilder(requireContext())
-                        .setTitle("Exact Alarms Not Allowed")
-                        .setMessage("Exact alarms are restricted by the system. The reminder will still arrive using windowed delivery, or you can grant exact alarms in Settings.")
-                        .setPositiveButton("Open Settings", (d, w) -> {
+                        .setTitle(R.string.settings_exact_alarm_dialog_title)
+                        .setMessage(R.string.settings_exact_alarm_dialog_msg)
+                        .setPositiveButton(R.string.settings_open_settings, (d, w) -> {
                             Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                             startActivity(intent);
                         })
-                        .setNegativeButton("Continue Anyway", (d, w) -> scheduleAndNotify())
+                        .setNegativeButton(R.string.settings_continue_anyway, (d, w) -> scheduleAndNotify())
                         .show();
                 return;
             }
@@ -170,7 +179,7 @@ public class SettingsFragment extends Fragment {
     private void scheduleAndNotify() {
         ReminderScheduler.scheduleTestReminder(requireContext(), 10);
         Toast.makeText(requireContext(),
-                "⏰ Test reminder scheduled! It will fire in 10 seconds.",
+                getString(R.string.settings_test_reminder_toast),
                 Toast.LENGTH_LONG).show();
     }
 
@@ -197,13 +206,13 @@ public class SettingsFragment extends Fragment {
                 }
                 if (getActivity() != null) {
                     requireActivity().runOnUiThread(() -> {
-                        Toast.makeText(requireContext(), "✅ Backup exported successfully!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), getString(R.string.backup_export_success), Toast.LENGTH_LONG).show();
                     });
                 }
             } catch (Exception e) {
                 if (getActivity() != null) {
                     requireActivity().runOnUiThread(() -> {
-                        Toast.makeText(requireContext(), "Export failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), getString(R.string.backup_export_failed, e.getMessage()), Toast.LENGTH_LONG).show();
                     });
                 }
             }
@@ -235,9 +244,9 @@ public class SettingsFragment extends Fragment {
                 if (getActivity() != null) {
                     requireActivity().runOnUiThread(() -> {
                         new MaterialAlertDialogBuilder(requireContext())
-                                .setTitle("Import Failed")
-                                .setMessage("The selected file is not a valid Habit Tracker backup:\n\n" + e.getMessage())
-                                .setPositiveButton("OK", null)
+                                .setTitle(R.string.backup_import_failed_title)
+                                .setMessage(getString(R.string.backup_import_failed_msg, e.getMessage()))
+                                .setPositiveButton(R.string.action_ok, null)
                                 .show();
                     });
                 }
@@ -246,28 +255,27 @@ public class SettingsFragment extends Fragment {
     }
 
     private void showRestoreChoiceDialog(com.devansh.habittracker.data.backup.JsonBackupManager.BackupPayload payload) {
-        String msg = String.format("Found %d habits and %d tasks in backup.\n\nChoose restore strategy:",
-                payload.habits.size(), payload.todos.size());
+        String msg = getString(R.string.backup_restore_dialog_msg, payload.habits.size(), payload.todos.size());
 
         new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Restore Backup")
+                .setTitle(R.string.backup_restore_dialog_title)
                 .setMessage(msg)
-                .setPositiveButton("Merge (Keep Existing)", (d, w) -> {
+                .setPositiveButton(R.string.backup_merge_option, (d, w) -> {
                     executeRestore(payload, false);
                 })
-                .setNeutralButton("Replace (Wipe Existing)", (d, w) -> {
+                .setNeutralButton(R.string.backup_replace_option, (d, w) -> {
                     executeRestore(payload, true);
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
     private void executeRestore(com.devansh.habittracker.data.backup.JsonBackupManager.BackupPayload payload, boolean replace) {
         com.devansh.habittracker.data.backup.JsonBackupManager.restoreBackup(
                 requireContext(), payload, replace, summary -> {
-                    String result = String.format("Restored %d habits, %d logs, and %d tasks!",
+                    String result = getString(R.string.backup_restored_summary,
                             summary.habitsRestored, summary.logsRestored, summary.todosRestored);
-                    Toast.makeText(requireContext(), "✅ " + result, Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), result, Toast.LENGTH_LONG).show();
                 }
         );
     }

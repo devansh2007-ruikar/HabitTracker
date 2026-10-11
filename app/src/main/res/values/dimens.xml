@@ -34,4 +34,8 @@
     <dimen name="text_body">14sp</dimen>
     <dimen name="text_caption">12sp</dimen>
     <dimen name="text_badge">10sp</dimen>
+
+    <!-- GDG Credit Logo -->
+    <dimen name="gdg_logo_width">140dp</dimen>
+    <dimen name="gdg_logo_height">74dp</dimen>
 </resources>
