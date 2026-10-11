@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neo-Brutalist Dimensions -->
+    <dimen name="brutalist_stroke_width">2dp</dimen>
+    <dimen name="brutalist_card_corner">12dp</dimen>
+    <dimen name="brutalist_shadow_offset">4dp</dimen>
+    <dimen name="brutalist_chip_corner">10dp</dimen>
+
+    <!-- Standard Margins & Paddings -->
+    <dimen name="spacing_xxs">2dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">12dp</dimen>
+    <dimen name="spacing_lg">16dp</dimen>
+    <dimen name="spacing_xl">20dp</dimen>
+    <dimen name="spacing_xxl">24dp</dimen>
+    <dimen name="spacing_xxxl">32dp</dimen>
+
+    <!-- Component Sizing & Touch Targets -->
+    <dimen name="min_touch_target_size">48dp</dimen>
+    <dimen name="card_elevation_default">0dp</dimen>
+    <dimen name="btn_height">48dp</dimen>
+    <dimen name="chip_height">38dp</dimen>
+    <dimen name="icon_size_sm">20dp</dimen>
+    <dimen name="icon_size_md">24dp</dimen>
+    <dimen name="icon_size_lg">32dp</dimen>
+    <dimen name="icon_size_xl">48dp</dimen>
+
+    <!-- Font Sizes -->
+    <dimen name="text_display">32sp</dimen>
+    <dimen name="text_headline">24sp</dimen>
+    <dimen name="text_title">18sp</dimen>
+    <dimen name="text_body_lg">16sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_caption">12sp</dimen>
+    <dimen name="text_badge">10sp</dimen>
+</resources>

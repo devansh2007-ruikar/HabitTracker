@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base Material 3 Night Theme -->
+    <!-- Base Material 3 Night Theme with GDG Palette and Neo-Brutalist Styles -->
     <style name="Theme.HabitTracker" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Brand Colors -->
         <item name="colorPrimary">@color/primary</item>
@@ -38,5 +38,22 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+
+        <!-- Typography: Space Grotesk for Headings, Inter for Body -->
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.HabitTracker.Display</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.HabitTracker.Headline</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.HabitTracker.Headline</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.HabitTracker.Title</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.HabitTracker.Title</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.HabitTracker.Title</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.HabitTracker.Body</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.HabitTracker.Body</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.HabitTracker.Body</item>
+
+        <!-- Neo-Brutalist Component Defaults -->
+        <item name="materialCardViewStyle">@style/Widget.HabitTracker.Card</item>
+        <item name="chipStyle">@style/Widget.HabitTracker.Chip</item>
     </style>
 </resources>

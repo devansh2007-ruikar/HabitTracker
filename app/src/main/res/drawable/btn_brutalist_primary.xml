@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed state: Button shifts 4dp down & right into the shadow -->
+    <item android:state_pressed="true">
+        <layer-list>
+            <item
+                android:left="@dimen/brutalist_shadow_offset"
+                android:top="@dimen/brutalist_shadow_offset">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/primary" />
+                    <stroke
+                        android:width="@dimen/brutalist_stroke_width"
+                        android:color="?attr/colorOutline" />
+                    <corners android:radius="@dimen/brutalist_card_corner" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Normal state: Raised surface with 4dp hard shadow -->
+    <item>
+        <layer-list>
+            <!-- Hard Shadow -->
+            <item
+                android:left="@dimen/brutalist_shadow_offset"
+                android:top="@dimen/brutalist_shadow_offset">
+                <shape android:shape="rectangle">
+                    <solid android:color="?attr/colorOutline" />
+                    <corners android:radius="@dimen/brutalist_card_corner" />
+                </shape>
+            </item>
+            <!-- Surface Button -->
+            <item
+                android:right="@dimen/brutalist_shadow_offset"
+                android:bottom="@dimen/brutalist_shadow_offset">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/primary" />
+                    <stroke
+                        android:width="@dimen/brutalist_stroke_width"
+                        android:color="?attr/colorOutline" />
+                    <corners android:radius="@dimen/brutalist_card_corner" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

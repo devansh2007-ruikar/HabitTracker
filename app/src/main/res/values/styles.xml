@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Typography Styles with Bundled Open-Source Fonts -->
+    <style name="TextAppearance.HabitTracker.Display" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="fontFamily">@font/space_grotesk</item>
+        <item name="android:fontFamily">@font/space_grotesk</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.HabitTracker.Headline" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/space_grotesk</item>
+        <item name="android:fontFamily">@font/space_grotesk</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.HabitTracker.Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/space_grotesk</item>
+        <item name="android:fontFamily">@font/space_grotesk</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.HabitTracker.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+
+    <style name="TextAppearance.HabitTracker.Mono" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/jetbrains_mono</item>
+        <item name="android:fontFamily">@font/jetbrains_mono</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Neo-Brutalist Card View Style: 2dp outline, 12dp corners -->
+    <style name="Widget.HabitTracker.Card" parent="Widget.Material3.CardView.Outlined">
+        <item name="strokeWidth">@dimen/brutalist_stroke_width</item>
+        <item name="strokeColor">?attr/colorOutline</item>
+        <item name="cardCornerRadius">@dimen/brutalist_card_corner</item>
+        <item name="cardElevation">@dimen/card_elevation_default</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+    </style>
+
+    <!-- Neo-Brutalist Chip Style: Outlined, filled with accent when selected -->
+    <style name="Widget.HabitTracker.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipStrokeWidth">@dimen/brutalist_stroke_width</item>
+        <item name="chipStrokeColor">?attr/colorOutline</item>
+        <item name="chipCornerRadius">@dimen/brutalist_chip_corner</item>
+        <item name="chipBackgroundColor">@color/chip_brutalist_bg</item>
+        <item name="android:textColor">@color/chip_brutalist_text</item>
+        <item name="fontFamily">@font/space_grotesk</item>
+        <item name="android:fontFamily">@font/space_grotesk</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minHeight">@dimen/chip_height</item>
+    </style>
+
+    <!-- Neo-Brutalist Button Style: 2dp outline, 12dp corners -->
+    <style name="Widget.HabitTracker.Button" parent="Widget.Material3.Button">
+        <item name="strokeWidth">@dimen/brutalist_stroke_width</item>
+        <item name="strokeColor">?attr/colorOutline</item>
+        <item name="cornerRadius">@dimen/brutalist_card_corner</item>
+        <item name="fontFamily">@font/space_grotesk</item>
+        <item name="android:fontFamily">@font/space_grotesk</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minHeight">@dimen/btn_height</item>
+    </style>
+
+    <style name="Widget.HabitTracker.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeWidth">@dimen/brutalist_stroke_width</item>
+        <item name="strokeColor">?attr/colorOutline</item>
+        <item name="cornerRadius">@dimen/brutalist_card_corner</item>
+        <item name="fontFamily">@font/space_grotesk</item>
+        <item name="android:fontFamily">@font/space_grotesk</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minHeight">@dimen/btn_height</item>
+    </style>
+
+</resources>
