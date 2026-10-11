@@ -1,3 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HabitTracker</string>
+    <string name="app_name">Habit Tracker</string>
+
+    <!-- Navigation -->
+    <string name="nav_today">Today</string>
+    <string name="nav_habits">Habits</string>
+    <string name="nav_stats">Stats</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Today Screen -->
+    <string name="today_title">Today</string>
+    <string name="today_empty_title">All clear for this day!</string>
+    <string name="today_empty_subtitle">No habits scheduled, or you\'ve finished everything. Tap + to create one.</string>
+    <string name="streak_badge_format">🔥 %d</string>
+    <string name="streak_days_format">🔥 %d days</string>
+    <string name="streak_weeks_format">🔥 %d wks</string>
+    <string name="times_per_week_progress">%1$d/%2$d this week</string>
+    <string name="progress_fraction_format">%1$.0f / %2$.0f %3$s</string>
+    <string name="quick_log_complete">Mark Complete</string>
+    <string name="quick_log_increment">Increment (+1)</string>
+    <string name="quick_log_decrement">Decrement (-1)</string>
+    <string name="timer_start">Start</string>
+    <string name="timer_pause">Pause</string>
+    <string name="timer_manual">Manual</string>
+    <string name="timer_reset">Reset</string>
+    <string name="timer_save_minutes">+%d min</string>
+
+    <!-- Habits Screen -->
+    <string name="habits_title">My Habits</string>
+    <string name="add_habit">Add Habit</string>
+    <string name="filter_all">All</string>
+    <string name="filter_active">Active</string>
+    <string name="filter_archived">Archived</string>
+    <string name="habits_empty_title">No habits yet</string>
+    <string name="habits_empty_subtitle">Start small, stay consistent. Tap + below to add your first habit.</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_archive">Archive</string>
+    <string name="action_unarchive">Unarchive</string>
+    <string name="action_delete">Delete</string>
+    <string name="confirm_delete_title">Delete Habit?</string>
+    <string name="confirm_delete_message">Are you sure you want to delete \"%s\"? All associated logs and streaks will be removed.</string>
+    <string name="habit_deleted">Habit deleted</string>
+    <string name="action_undo">Undo</string>
+
+    <!-- Create/Edit Habit -->
+    <string name="create_habit_title">New Habit</string>
+    <string name="edit_habit_title">Edit Habit</string>
+    <string name="habit_name_label">Habit Name</string>
+    <string name="habit_name_hint">e.g., Morning Meditation, Read Book</string>
+    <string name="habit_type_label">Habit Type</string>
+    <string name="type_yes_no">Yes / No</string>
+    <string name="type_countable">Countable</string>
+    <string name="type_timed">Timed</string>
+    <string name="target_label">Daily Target</string>
+    <string name="unit_label">Unit</string>
+    <string name="unit_hint">e.g., pages, glasses, km</string>
+    <string name="schedule_label">Schedule</string>
+    <string name="schedule_daily">Daily</string>
+    <string name="schedule_specific_days">Specific Days</string>
+    <string name="schedule_times_per_week">Times / Week</string>
+    <string name="reminder_label">Daily Reminder</string>
+    <string name="reminder_set">Set Time</string>
+    <string name="reminder_clear">Clear</string>
+    <string name="action_save">Save Habit</string>
+
+    <!-- Day Chips -->
+    <string name="day_mon">Mon</string>
+    <string name="day_tue">Tue</string>
+    <string name="day_wed">Wed</string>
+    <string name="day_thu">Thu</string>
+    <string name="day_fri">Fri</string>
+    <string name="day_sat">Sat</string>
+    <string name="day_sun">Sun</string>
+
+    <!-- Validation Errors -->
+    <string name="error_name_empty">Name cannot be empty</string>
+    <string name="error_target_invalid">Target must be greater than 0</string>
+    <string name="error_no_days_selected">Please select at least one day</string>
+
+    <!-- Stats & Details -->
+    <string name="stats_title">Habit Statistics</string>
+    <string name="stat_current_streak">Current Streak</string>
+    <string name="stat_best_streak">Best Streak</string>
+    <string name="stat_total_completions">Total Completions</string>
+    <string name="stat_completion_rate">Completion Rate</string>
+    <string name="range_7_days">7 Days</string>
+    <string name="range_30_days">30 Days</string>
+    <string name="range_all">All Time</string>
+    <string name="calendar_view_title">Activity Calendar</string>
+    <string name="weekly_chart_title">Weekly Progress</string>
+    <string name="legend_complete">Complete</string>
+    <string name="legend_partial">Partial</string>
+    <string name="legend_missed">Missed</string>
+    <string name="legend_not_scheduled">Not Sched.</string>
+    <string name="edit_log_title">Log for %s</string>
+    <string name="log_value_hint">Logged Value</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_ok">OK</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_system">System Default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="about_title">About Habit Tracker</string>
+    <string name="about_desc">Built for GDG RBU Recruitment. Pure Java 17 offline-first architecture with Room, MVVM, Material 3, and deterministic streak calculators.</string>
+
+    <!-- Bonus Features Strings -->
+    <string name="widget_description">Shows today\'s scheduled habits with tap-to-complete.</string>
+    <string name="backup_title">Backup &amp; Restore</string>
+    <string name="backup_desc">Export your habits, streaks, logs, and tasks as JSON, or import from an existing backup.</string>
+    <string name="btn_export_backup">Export Data (JSON)</string>
+    <string name="btn_import_backup">Import Data (JSON)</string>
+    <string name="todo_title">Tasks</string>
+    <string name="todo_empty_title">No pending tasks</string>
+    <string name="todo_add_hint">Add a new to-do task...</string>
 </resources>

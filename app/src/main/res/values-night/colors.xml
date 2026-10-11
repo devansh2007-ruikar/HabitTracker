@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand / Primary Palette (Indigo - Dark Mode) -->
+    <color name="primary">#818CF8</color>
+    <color name="on_primary">#1E1B4B</color>
+    <color name="primary_container">#3730A3</color>
+    <color name="on_primary_container">#E0E7FF</color>
+
+    <!-- Secondary Palette (Emerald - Success / Streaks) -->
+    <color name="secondary">#34D399</color>
+    <color name="on_secondary">#064E3B</color>
+    <color name="secondary_container">#065F46</color>
+    <color name="on_secondary_container">#D1FAE5</color>
+
+    <!-- Tertiary Palette (Amber - Fire / Milestones) -->
+    <color name="tertiary">#FBBF24</color>
+    <color name="on_tertiary">#78350F</color>
+    <color name="tertiary_container">#92400E</color>
+    <color name="on_tertiary_container">#FEF3C7</color>
+
+    <!-- Neutral & Surface (Dark Mode) -->
+    <color name="background">#0B0F19</color>
+    <color name="on_background">#F1F5F9</color>
+    <color name="surface">#111827</color>
+    <color name="on_surface">#F1F5F9</color>
+    <color name="surface_variant">#1F2937</color>
+    <color name="on_surface_variant">#9CA3AF</color>
+    <color name="outline">#374151</color>
+    <color name="outline_variant">#1F2937</color>
+
+    <!-- Error Palette -->
+    <color name="error">#F87171</color>
+    <color name="on_error">#7F1D1D</color>
+    <color name="error_container">#991B1B</color>
+    <color name="on_error_container">#FEE2E2</color>
+
+    <!-- Habit Day Status Palette (Dark Mode) -->
+    <color name="status_complete">#34D399</color>
+    <color name="status_complete_container">#064E3B</color>
+    <color name="status_partial">#FBBF24</color>
+    <color name="status_partial_container">#78350F</color>
+    <color name="status_missed">#F87171</color>
+    <color name="status_missed_container">#7F1D1D</color>
+    <color name="status_not_scheduled">#6B7280</color>
+    <color name="status_not_scheduled_container">#1F2937</color>
+    <color name="status_future">#374151</color>
+    <color name="status_future_container">#111827</color>
+
+    <!-- Streak Fire Indicator -->
+    <color name="streak_fire">#FF9E40</color>
+    <color name="streak_fire_container">#7C2D12</color>
+
+    <!-- Static Palette -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

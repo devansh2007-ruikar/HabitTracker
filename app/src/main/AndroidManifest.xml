@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions for Alarms, Notifications, and Boot Rescheduling -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
+        android:name=".HabitTrackerApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HabitTracker">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -19,10 +26,65 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.create.CreateEditHabitActivity"
+            android:exported="false"
+            android:label="@string/create_habit_title"
+            android:theme="@style/Theme.HabitTracker"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.detail.HabitDetailActivity"
+            android:exported="false"
+            android:label="@string/stats_title"
+            android:theme="@style/Theme.HabitTracker" />
+
+        <!-- Alarm & Notification Receivers -->
+        <receiver
+            android:name=".reminder.AlarmReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".reminder.NotificationActionReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".reminder.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Home Screen App Widget -->
+        <receiver
+            android:name=".widget.HabitAppWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.devansh.habittracker.widget.ACTION_WIDGET_COMPLETE_HABIT" />
+                <action android:name="com.devansh.habittracker.widget.ACTION_MIDNIGHT_UPDATE" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/habit_app_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.HabitWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false" />
+
     </application>
 
 </manifest>
