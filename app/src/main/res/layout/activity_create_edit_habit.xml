@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
+        android:background="?android:attr/colorBackground"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -18,8 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="?attr/colorOnBackground"
             app:title="@string/create_habit_title"
-            app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge" />
+            app:titleTextAppearance="@style/TextAppearance.HabitTracker.Title" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -35,361 +36,505 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Habit Name Input -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_name"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!--  Section 1: Basics Card                                        -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <FrameLayout
+                android:id="@+id/card_basics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/habit_name_label"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapSentences"
-                    android:maxLines="1" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Habit Type Selection -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/habit_type_label"
-                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                android:textColor="?attr/colorOnSurface" />
-
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/toggle_habit_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:checkedButton="@id/btn_type_yes_no"
-                app:selectionRequired="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_type_yes_no"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="@string/type_yes_no" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_type_countable"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="@string/type_countable" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_type_timed"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="@string/type_timed" />
-
-            </com.google.android.material.button.MaterialButtonToggleGroup>
-
-            <!-- Target & Unit Container (hidden for YES_NO) -->
-            <LinearLayout
-                android:id="@+id/layout_target_unit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_target"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="@string/target_label"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusTopStart="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_target"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text="20" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_unit"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:hint="@string/unit_label"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusTopStart="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_unit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/unit_hint"
-                        android:inputType="text" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <!-- Schedule Type Selection -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/schedule_label"
-                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                android:textColor="?attr/colorOnSurface" />
-
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/toggle_schedule_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:checkedButton="@id/btn_schedule_daily"
-                app:selectionRequired="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_schedule_daily"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="@string/schedule_daily" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_schedule_specific_days"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="@string/schedule_specific_days" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_schedule_times_per_week"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="@string/schedule_times_per_week" />
-
-            </com.google.android.material.button.MaterialButtonToggleGroup>
-
-            <!-- Specific Days Weekday Chips Container -->
-            <LinearLayout
-                android:id="@+id/layout_weekdays"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select Scheduled Days:"
-                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group_weekdays"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    app:singleSelection="false">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_mon"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_mon" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_tue"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_tue" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_wed"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_wed" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_thu"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_thu" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_fri"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_fri" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_sat"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_sat" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_sun"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/day_sun" />
-
-                </com.google.android.material.chip.ChipGroup>
-
-            </LinearLayout>
-
-            <!-- Times Per Week Stepper/Slider Container -->
-            <LinearLayout
-                android:id="@+id/layout_times_per_week"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <TextView
-                    android:id="@+id/tv_times_per_week_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                    android:textColor="?attr/colorOnSurface"
-                    tools:text="Goal: 3 times per week" />
-
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/slider_times_per_week"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:stepSize="1.0"
-                    android:value="3.0"
-                    android:valueFrom="1.0"
-                    android:valueTo="7.0" />
-
-            </LinearLayout>
-
-            <!-- Reminder Picker Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:cardBackgroundColor="?attr/colorSurfaceVariant">
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_brutalist_card">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="vertical"
                     android:padding="16dp">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:contentDescription="@string/reminder_label"
-                        app:srcCompat="@drawable/ic_alarm"
-                        app:tint="?attr/colorPrimary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/reminder_label"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                            android:textColor="?attr/colorOnSurface" />
-
-                        <TextView
-                            android:id="@+id/tv_reminder_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="No reminder set"
-                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                            android:textColor="?attr/colorOnSurfaceVariant" />
-
-                    </LinearLayout>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_pick_reminder"
-                        style="@style/Widget.Material3.Button.TonalButton"
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:contentDescription="@string/reminder_set"
-                        android:text="@string/reminder_set" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/section_basics_title"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface" />
 
-                    <ImageButton
-                        android:id="@+id/btn_clear_reminder"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/reminder_clear"
-                        android:visibility="gone"
-                        app:srcCompat="@drawable/ic_minus"
-                        app:tint="?attr/colorError"
-                        tools:visibility="visible" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/section_basics_helper"
+                        android:fontFamily="@font/inter"
+                        android:textSize="13sp"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_name"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/habit_name_label"
+                        app:boxStrokeWidth="2dp"
+                        app:boxStrokeColor="?attr/colorOutline"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusTopStart="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapSentences"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
-            <!-- Save Button -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!--  Section 2: Type & Target Card                                 -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <FrameLayout
+                android:id="@+id/card_type_target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_brutalist_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/section_type_title"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/section_type_helper"
+                        android:fontFamily="@font/inter"
+                        android:textSize="13sp"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggle_habit_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:checkedButton="@id/btn_type_yes_no"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_type_yes_no"
+                            style="@style/Widget.HabitTracker.Button.Outlined"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="@string/type_yes_no"
+                            android:textSize="13sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_type_countable"
+                            style="@style/Widget.HabitTracker.Button.Outlined"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="@string/type_countable"
+                            android:textSize="13sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_type_timed"
+                            style="@style/Widget.HabitTracker.Button.Outlined"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="@string/type_timed"
+                            android:textSize="13sp" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <!-- Target & Unit Container (hidden for YES_NO) -->
+                    <LinearLayout
+                        android:id="@+id/layout_target_unit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_target"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:hint="@string/target_label"
+                            app:boxStrokeWidth="2dp"
+                            app:boxStrokeColor="?attr/colorOutline"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_target"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/jetbrains_mono"
+                                android:inputType="numberDecimal"
+                                android:text="20" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_unit"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:hint="@string/unit_label"
+                            app:boxStrokeWidth="2dp"
+                            app:boxStrokeColor="?attr/colorOutline"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_unit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter"
+                                android:hint="@string/unit_hint"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!--  Section 3: Schedule Card                                      -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <FrameLayout
+                android:id="@+id/card_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_brutalist_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/section_schedule_title"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/section_schedule_helper"
+                        android:fontFamily="@font/inter"
+                        android:textSize="13sp"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggle_schedule_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:checkedButton="@id/btn_schedule_daily"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_schedule_daily"
+                            style="@style/Widget.HabitTracker.Button.Outlined"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="@string/schedule_daily"
+                            android:textSize="13sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_schedule_specific_days"
+                            style="@style/Widget.HabitTracker.Button.Outlined"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1.2"
+                            android:text="@string/schedule_specific_days"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_schedule_times_per_week"
+                            style="@style/Widget.HabitTracker.Button.Outlined"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1.1"
+                            android:text="@string/schedule_times_per_week"
+                            android:textSize="12sp" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <!-- Specific Days Weekday Chips Container -->
+                    <LinearLayout
+                        android:id="@+id/layout_weekdays"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/select_scheduled_days"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chip_group_weekdays"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:singleSelection="false">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_mon"
+                                style="@style/Widget.HabitTracker.Chip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_mon" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_tue"
+                                style="@style/Widget.HabitTracker.Chip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_tue" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_wed"
+                                style="@style/Widget.HabitTracker.Chip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_wed" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_thu"
+                                style="@style/Widget.HabitTracker.Chip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_thu" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_fri"
+                                style="@style/Widget.HabitTracker.Chip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_fri" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_sat"
+                                style="@style/Widget.HabitTracker.Chip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_sat" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_sun"
+                                style="@style/Widget.HabitTracker.Chip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_sun" />
+
+                        </com.google.android.material.chip.ChipGroup>
+
+                    </LinearLayout>
+
+                    <!-- Times Per Week Stepper/Slider Container -->
+                    <LinearLayout
+                        android:id="@+id/layout_times_per_week"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/tv_times_per_week_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="Goal: 3 times per week" />
+
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slider_times_per_week"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.6"
+                            android:stepSize="1.0"
+                            android:value="3.0"
+                            android:valueFrom="1.0"
+                            android:valueTo="7.0" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!--  Section 4: Reminder Card                                      -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <FrameLayout
+                android:id="@+id/card_reminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_brutalist_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/section_reminder_title"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/section_reminder_helper"
+                        android:fontFamily="@font/inter"
+                        android:textSize="13sp"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:contentDescription="@string/reminder_label"
+                            app:srcCompat="@drawable/ic_alarm"
+                            app:tint="?attr/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_reminder_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/reminder_none_set"
+                                android:fontFamily="@font/jetbrains_mono"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorOnSurface" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_pick_reminder"
+                            style="@style/Widget.HabitTracker.Button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:contentDescription="@string/reminder_set"
+                            android:text="@string/reminder_set" />
+
+                        <ImageButton
+                            android:id="@+id/btn_clear_reminder"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="6dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/reminder_clear"
+                            android:visibility="gone"
+                            app:srcCompat="@drawable/ic_minus"
+                            app:tint="?attr/colorError"
+                            tools:visibility="visible" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!--  Save Habit Button                                             -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save"
-                style="@style/Widget.Material3.Button"
+                style="@style/Widget.HabitTracker.Button"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:layout_marginTop="28dp"
                 android:layout_marginBottom="32dp"
                 android:text="@string/action_save" />
 

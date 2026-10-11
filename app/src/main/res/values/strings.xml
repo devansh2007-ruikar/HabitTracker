@@ -56,6 +56,16 @@
     <!-- Create/Edit Habit -->
     <string name="create_habit_title">New Habit</string>
     <string name="edit_habit_title">Edit Habit</string>
+    <string name="section_basics_title">1. Basics</string>
+    <string name="section_basics_helper">Give your habit a clear, actionable name you will recognize immediately.</string>
+    <string name="section_type_title">2. Type &amp; Target</string>
+    <string name="section_type_helper">Choose how to track: Yes/No is binary, Countable tracks quantities (e.g., pages, reps), and Timed tracks duration.</string>
+    <string name="section_schedule_title">3. Schedule</string>
+    <string name="section_schedule_helper">Define which days count towards your streaks: daily, specific weekdays, or flexible times per week.</string>
+    <string name="section_reminder_title">4. Daily Reminder</string>
+    <string name="section_reminder_helper">Optional notification alarm on scheduled days if not yet completed today.</string>
+    <string name="reminder_none_set">No reminder set</string>
+    <string name="select_scheduled_days">Select Scheduled Days:</string>
     <string name="habit_name_label">Habit Name</string>
     <string name="habit_name_hint">e.g., Morning Meditation, Read Book</string>
     <string name="habit_type_label">Habit Type</string>
