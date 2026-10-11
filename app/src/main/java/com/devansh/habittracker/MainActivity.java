@@ -1,14 +1,13 @@
 package com.devansh.habittracker;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.devansh.habittracker.databinding.ActivityMainBinding;
 import com.devansh.habittracker.ui.create.CreateEditHabitActivity;
@@ -23,25 +22,18 @@ import com.devansh.habittracker.ui.today.TodayFragment;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static final String PREFS_NAME = "habit_tracker_prefs";
-    private static final String KEY_THEME = "key_theme";
+    private static final String TAG_TODAY = "tag_today";
+    private static final String TAG_HABITS = "tag_habits";
+    private static final String TAG_STATS = "tag_stats";
+    private static final String TAG_SETTINGS = "tag_settings";
+    private static final String KEY_SELECTED_NAV_ID = "key_selected_nav_id";
 
     private ActivityMainBinding binding;
-
-    private final TodayFragment todayFragment = new TodayFragment();
-    private final HabitsFragment habitsFragment = new HabitsFragment();
-    private final StatsFragment statsFragment = new StatsFragment();
-    private final SettingsFragment settingsFragment = new SettingsFragment();
+    private int selectedNavId = R.id.navigation_today;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         androidx.core.splashscreen.SplashScreen.installSplashScreen(this);
-
-        // Apply persisted theme preference before inflating views
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int themeMode = prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        AppCompatDelegate.setDefaultNightMode(themeMode);
-
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -53,44 +45,101 @@ public class MainActivity extends AppCompatActivity {
 
         setupBottomNavigation();
 
-        // Default to Today screen on initial launch
-        if (savedInstanceState == null) {
-            switchFragment(todayFragment, getString(R.string.nav_today));
+        if (savedInstanceState != null) {
+            selectedNavId = savedInstanceState.getInt(KEY_SELECTED_NAV_ID, R.id.navigation_today);
+        } else {
+            selectedNavId = R.id.navigation_today;
         }
+
+        switchFragment(selectedNavId);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_SELECTED_NAV_ID, selectedNavId);
     }
 
     private void setupBottomNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.navigation_today) {
-                switchFragment(todayFragment, getString(R.string.nav_today));
-                binding.fabAddHabit.show();
-                return true;
-            } else if (id == R.id.navigation_habits) {
-                switchFragment(habitsFragment, getString(R.string.nav_habits));
-                binding.fabAddHabit.show();
-                return true;
-            } else if (id == R.id.navigation_stats) {
-                switchFragment(statsFragment, getString(R.string.nav_stats));
-                binding.fabAddHabit.hide();
-                return true;
-            } else if (id == R.id.navigation_settings) {
-                switchFragment(settingsFragment, getString(R.string.nav_settings));
-                binding.fabAddHabit.hide();
-                return true;
+            if (id != selectedNavId) {
+                selectedNavId = id;
+                switchFragment(id);
             }
-            return false;
+            return true;
         });
     }
 
-    private void switchFragment(Fragment fragment, String title) {
+    private void switchFragment(int navId) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+
+        String targetTag;
+        String title;
+        boolean showFab;
+
+        if (navId == R.id.navigation_habits) {
+            targetTag = TAG_HABITS;
+            title = getString(R.string.nav_habits);
+            showFab = true;
+        } else if (navId == R.id.navigation_stats) {
+            targetTag = TAG_STATS;
+            title = getString(R.string.nav_stats);
+            showFab = false;
+        } else if (navId == R.id.navigation_settings) {
+            targetTag = TAG_SETTINGS;
+            title = getString(R.string.nav_settings);
+            showFab = false;
+        } else {
+            targetTag = TAG_TODAY;
+            title = getString(R.string.nav_today);
+            showFab = true;
+        }
+
         binding.toolbar.setTitle(title);
-        fragment.setEnterTransition(new com.google.android.material.transition.MaterialSharedAxis(
-                com.google.android.material.transition.MaterialSharedAxis.Z, true));
-        fragment.setExitTransition(new com.google.android.material.transition.MaterialSharedAxis(
-                com.google.android.material.transition.MaterialSharedAxis.Z, false));
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
+        if (showFab) {
+            binding.fabAddHabit.show();
+        } else {
+            binding.fabAddHabit.hide();
+        }
+
+        Fragment targetFragment = fm.findFragmentByTag(targetTag);
+        if (targetFragment == null) {
+            targetFragment = createFragmentForTag(targetTag);
+            transaction.add(R.id.fragment_container, targetFragment, targetTag);
+        } else {
+            transaction.show(targetFragment);
+        }
+
+        String[] allTags = {TAG_TODAY, TAG_HABITS, TAG_STATS, TAG_SETTINGS};
+        for (String tag : allTags) {
+            if (!tag.equals(targetTag)) {
+                Fragment other = fm.findFragmentByTag(tag);
+                if (other != null && !other.isHidden()) {
+                    transaction.hide(other);
+                }
+            }
+        }
+
+        transaction.commit();
+
+        if (binding.bottomNavigation.getSelectedItemId() != navId) {
+            binding.bottomNavigation.setSelectedItemId(navId);
+        }
+    }
+
+    private Fragment createFragmentForTag(String tag) {
+        switch (tag) {
+            case TAG_HABITS:
+                return new HabitsFragment();
+            case TAG_STATS:
+                return new StatsFragment();
+            case TAG_SETTINGS:
+                return new SettingsFragment();
+            case TAG_TODAY:
+            default:
+                return new TodayFragment();
+        }
     }
 }

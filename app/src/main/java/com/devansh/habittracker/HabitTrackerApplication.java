@@ -3,6 +3,7 @@ package com.devansh.habittracker;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -19,6 +20,7 @@ import com.devansh.habittracker.widget.HabitAppWidgetProvider;
  */
 public class HabitTrackerApplication extends Application {
 
+    private static final String TAG = "HabitTrackerApp";
     private static final String PREFS_NAME = "habit_tracker_prefs";
     private static final String KEY_THEME = "key_theme";
 
@@ -26,15 +28,27 @@ public class HabitTrackerApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        // 1. Initialize persisted theme
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int themeMode = prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        AppCompatDelegate.setDefaultNightMode(themeMode);
+        // 1. Initialize persisted theme safely
+        try {
+            SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            int themeMode = prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+            AppCompatDelegate.setDefaultNightMode(themeMode);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to apply persisted night mode", e);
+        }
 
         // 2. Ensure notification channel exists
-        ReminderScheduler.createNotificationChannel(this);
+        try {
+            ReminderScheduler.createNotificationChannel(this);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to create notification channel", e);
+        }
 
         // 3. Initialize midnight widget alarm
-        HabitAppWidgetProvider.scheduleMidnightAlarm(this);
+        try {
+            HabitAppWidgetProvider.scheduleMidnightAlarm(this);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to schedule midnight alarm", e);
+        }
     }
 }

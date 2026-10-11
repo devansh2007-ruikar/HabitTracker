@@ -1,6 +1,5 @@
 package com.devansh.habittracker.ui.stats;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,6 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +81,14 @@ public class StatsFragment extends Fragment implements CalendarGridAdapter.OnCal
         calendarAdapter = new CalendarGridAdapter(this);
         binding.rvCalendarGrid.setAdapter(calendarAdapter);
 
-        binding.btnPrevMonth.setOnClickListener(v -> viewModel.previousMonth());
-        binding.btnNextMonth.setOnClickListener(v -> viewModel.nextMonth());
+        binding.btnPrevMonth.setOnClickListener(v -> {
+            if (binding == null || !isAdded()) return;
+            viewModel.previousMonth();
+        });
+        binding.btnNextMonth.setOnClickListener(v -> {
+            if (binding == null || !isAdded()) return;
+            viewModel.nextMonth();
+        });
     }
 
     private void setupChart() {
@@ -110,6 +114,7 @@ public class StatsFragment extends Fragment implements CalendarGridAdapter.OnCal
 
     private void setupRangeToggle() {
         binding.toggleRangeGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (binding == null || !isAdded()) return;
             if (!isChecked) return;
             if (checkedId == R.id.btn_range_7_days) {
                 viewModel.setRangeMode(HabitStatsViewModel.RangeMode.DAYS_7);
@@ -124,6 +129,7 @@ public class StatsFragment extends Fragment implements CalendarGridAdapter.OnCal
     private void observeViewModel() {
         // Active habits dropdown
         viewModel.getAllActiveHabits().observe(getViewLifecycleOwner(), habits -> {
+            if (binding == null || !isAdded()) return;
             loadedHabits = habits != null ? habits : new ArrayList<>();
             boolean hasHabits = !loadedHabits.isEmpty();
             binding.layoutStatsEmpty.setVisibility(hasHabits ? View.GONE : View.VISIBLE);
@@ -154,6 +160,7 @@ public class StatsFragment extends Fragment implements CalendarGridAdapter.OnCal
                 }
 
                 binding.actvSelectHabit.setOnItemClickListener((parent, v, position, id) -> {
+                    if (binding == null || !isAdded()) return;
                     Habit selected = loadedHabits.get(position);
                     viewModel.selectHabit(selected.getId());
                 });
@@ -162,28 +169,33 @@ public class StatsFragment extends Fragment implements CalendarGridAdapter.OnCal
 
         // Habit details
         viewModel.getHabit().observe(getViewLifecycleOwner(), habit -> {
+            if (binding == null || !isAdded()) return;
             // Updated habit details
         });
 
         // Streaks
         viewModel.getCurrentStreak().observe(getViewLifecycleOwner(), streak -> {
+            if (binding == null || !isAdded()) return;
             Habit h = viewModel.getHabit().getValue();
             String suffix = (h != null && h.getSchedule().getType() == ScheduleType.TIMES_PER_WEEK) ? " w" : " d";
             binding.tvStatCurrentStreak.setText((streak != null ? streak : 0) + suffix);
         });
 
         viewModel.getLongestStreak().observe(getViewLifecycleOwner(), streak -> {
+            if (binding == null || !isAdded()) return;
             Habit h = viewModel.getHabit().getValue();
             String suffix = (h != null && h.getSchedule().getType() == ScheduleType.TIMES_PER_WEEK) ? " w" : " d";
             binding.tvStatBestStreak.setText((streak != null ? streak : 0) + suffix);
         });
 
         viewModel.getTotalCompletions().observe(getViewLifecycleOwner(), total -> {
+            if (binding == null || !isAdded()) return;
             binding.tvStatTotalCompletions.setText(String.valueOf(total != null ? total : 0));
         });
 
         // Completion Rate
         viewModel.getCompletionRate().observe(getViewLifecycleOwner(), rate -> {
+            if (binding == null || !isAdded()) return;
             double r = rate != null ? rate : 0.0;
             int pct = (int) Math.round(r * 100);
             binding.tvCompletionRateValue.setText(pct + "%");
@@ -191,14 +203,24 @@ public class StatsFragment extends Fragment implements CalendarGridAdapter.OnCal
         });
 
         // Month Calendar
-        viewModel.getSelectedMonth().observe(getViewLifecycleOwner(), month -> updateCalendar());
-        viewModel.getMonthStatusMap().observe(getViewLifecycleOwner(), map -> updateCalendar());
+        viewModel.getSelectedMonth().observe(getViewLifecycleOwner(), month -> {
+            if (binding == null || !isAdded()) return;
+            updateCalendar();
+        });
+        viewModel.getMonthStatusMap().observe(getViewLifecycleOwner(), map -> {
+            if (binding == null || !isAdded()) return;
+            updateCalendar();
+        });
 
         // Weekly Bar Chart
-        viewModel.getLast7DaysData().observe(getViewLifecycleOwner(), this::updateBarChart);
+        viewModel.getLast7DaysData().observe(getViewLifecycleOwner(), weekData -> {
+            if (binding == null || !isAdded()) return;
+            updateBarChart(weekData);
+        });
     }
 
     private void updateCalendar() {
+        if (binding == null || !isAdded()) return;
         YearMonth month = viewModel.getSelectedMonth().getValue();
         if (month != null) {
             String monthName = month.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
@@ -211,6 +233,7 @@ public class StatsFragment extends Fragment implements CalendarGridAdapter.OnCal
     }
 
     private void updateBarChart(@Nullable Map<LocalDate, Double> weekData) {
+        if (binding == null || !isAdded()) return;
         if (weekData == null || weekData.isEmpty()) return;
 
         List<BarEntry> entries = new ArrayList<>();
@@ -243,6 +266,7 @@ public class StatsFragment extends Fragment implements CalendarGridAdapter.OnCal
 
     @Override
     public void onDayClicked(@NonNull LocalDate date) {
+        if (binding == null || !isAdded()) return;
         Habit habit = viewModel.getHabit().getValue();
         if (habit == null) return;
 
@@ -258,7 +282,10 @@ public class StatsFragment extends Fragment implements CalendarGridAdapter.OnCal
                 habit.getTarget(),
                 habit.getUnit()
         );
-        dialog.setOnLogSavedListener((d, val) -> viewModel.upsertDayLog(d, val));
+        dialog.setOnLogSavedListener((d, val) -> {
+            if (binding == null || !isAdded()) return;
+            viewModel.upsertDayLog(d, val);
+        });
         dialog.show(getChildFragmentManager(), "edit_calendar_day");
     }
 

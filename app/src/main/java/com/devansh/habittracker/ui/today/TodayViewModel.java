@@ -212,7 +212,7 @@ public class TodayViewModel extends AndroidViewModel {
                         break;
                     }
                 }
-                if (ScheduleRules.isComplete(h, matchedLog)) {
+                if (matchedLog != null && ScheduleRules.isComplete(h, matchedLog)) {
                     completedCount++;
                 }
             }

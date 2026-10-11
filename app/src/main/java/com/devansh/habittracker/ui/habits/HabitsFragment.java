@@ -48,6 +48,7 @@ public class HabitsFragment extends Fragment implements HabitsAdapter.OnHabitMen
         observeViewModel();
 
         binding.btnEmptyAddHabit.setOnClickListener(v -> {
+            if (binding == null || !isAdded()) return;
             startActivity(new Intent(requireContext(), CreateEditHabitActivity.class));
         });
     }
@@ -59,6 +60,7 @@ public class HabitsFragment extends Fragment implements HabitsAdapter.OnHabitMen
 
     private void setupFilterChips() {
         binding.chipGroupFilter.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (binding == null || !isAdded()) return;
             if (checkedIds.contains(R.id.chip_active)) {
                 viewModel.setFilterMode(HabitsViewModel.FilterMode.ACTIVE);
             } else if (checkedIds.contains(R.id.chip_archived)) {
@@ -71,6 +73,7 @@ public class HabitsFragment extends Fragment implements HabitsAdapter.OnHabitMen
 
     private void observeViewModel() {
         viewModel.getHabits().observe(getViewLifecycleOwner(), list -> {
+            if (binding == null || !isAdded()) return;
             adapter.submitList(list);
             boolean isEmpty = (list == null || list.isEmpty());
             binding.layoutHabitsEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
@@ -84,6 +87,7 @@ public class HabitsFragment extends Fragment implements HabitsAdapter.OnHabitMen
 
     @Override
     public void onHabitClick(@NonNull Habit habit) {
+        if (binding == null || !isAdded()) return;
         Intent intent = new Intent(requireContext(), HabitDetailActivity.class);
         intent.putExtra(HabitDetailActivity.EXTRA_HABIT_ID, habit.getId());
         startActivity(intent);
@@ -91,6 +95,7 @@ public class HabitsFragment extends Fragment implements HabitsAdapter.OnHabitMen
 
     @Override
     public void onEdit(@NonNull Habit habit) {
+        if (binding == null || !isAdded()) return;
         Intent intent = new Intent(requireContext(), CreateEditHabitActivity.class);
         intent.putExtra(CreateEditHabitActivity.EXTRA_HABIT_ID, habit.getId());
         startActivity(intent);
@@ -98,20 +103,27 @@ public class HabitsFragment extends Fragment implements HabitsAdapter.OnHabitMen
 
     @Override
     public void onToggleArchive(@NonNull Habit habit) {
+        if (binding == null || !isAdded()) return;
         viewModel.toggleArchive(habit);
     }
 
     @Override
     public void onDelete(@NonNull Habit habit) {
+        if (binding == null || !isAdded()) return;
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.confirm_delete_title)
                 .setMessage(getString(R.string.confirm_delete_message, habit.getName()))
                 .setPositiveButton(R.string.action_delete, (dialog, which) -> {
+                    if (binding == null || !isAdded()) return;
                     viewModel.deleteHabitWithUndo(habit, () -> {
                         // Show undo snackbar on main UI thread
+                        if (binding == null || !isAdded()) return;
                         if (getView() != null) {
                             Snackbar.make(requireView(), R.string.habit_deleted, Snackbar.LENGTH_LONG)
-                                    .setAction(R.string.action_undo, v -> viewModel.restoreLastDeleted())
+                                    .setAction(R.string.action_undo, v -> {
+                                        if (binding == null || !isAdded()) return;
+                                        viewModel.restoreLastDeleted();
+                                    })
                                     .show();
                         }
                     });

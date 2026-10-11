@@ -22,7 +22,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 
 /**
  * Tab 1: Today home screen.
@@ -42,6 +41,7 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
 
     private DateStripAdapter dateStripAdapter;
     private TodayHabitAdapter habitsAdapter;
+    private TodoTaskAdapter tasksAdapter;
 
     @Nullable
     @Override
@@ -64,21 +64,28 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
         observeViewModel();
 
         binding.btnEmptyAddHabit.setOnClickListener(v -> {
+            if (binding == null || !isAdded()) return;
             startActivity(new Intent(requireContext(), CreateEditHabitActivity.class));
         });
 
         // Add task button & keyboard action
-        binding.btnAddTask.setOnClickListener(v -> addNewTaskFromInput());
+        binding.btnAddTask.setOnClickListener(v -> {
+            if (binding == null || !isAdded()) return;
+            addNewTaskFromInput();
+        });
+
         binding.etNewTaskTitle.setOnEditorActionListener((v, actionId, event) -> {
+            if (binding == null || !isAdded()) return false;
             addNewTaskFromInput();
             return true;
         });
     }
 
-    private TodoTaskAdapter tasksAdapter;
-
     private void setupDateStrip() {
-        dateStripAdapter = new DateStripAdapter(date -> viewModel.setSelectedDate(date));
+        dateStripAdapter = new DateStripAdapter(date -> {
+            if (binding == null || !isAdded()) return;
+            viewModel.setSelectedDate(date);
+        });
         binding.rvDateStrip.setAdapter(dateStripAdapter);
     }
 
@@ -89,14 +96,21 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
 
     private void setupTasksRecyclerView() {
         tasksAdapter = new TodoTaskAdapter(
-                task -> viewModel.toggleTodoTask(task),
-                task -> viewModel.deleteTodoTask(task)
+                task -> {
+                    if (binding == null || !isAdded()) return;
+                    viewModel.toggleTodoTask(task);
+                },
+                task -> {
+                    if (binding == null || !isAdded()) return;
+                    viewModel.deleteTodoTask(task);
+                }
         );
         binding.rvTodoTasks.setAdapter(tasksAdapter);
     }
 
     private void setupModeToggle() {
         binding.toggleGroupMode.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (binding == null || !isAdded()) return;
             if (!isChecked) return;
 
             if (checkedId == R.id.btn_mode_habits) {
@@ -117,6 +131,7 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
     }
 
     private void addNewTaskFromInput() {
+        if (binding == null || !isAdded()) return;
         if (binding.etNewTaskTitle.getText() == null) return;
         String title = binding.etNewTaskTitle.getText().toString().trim();
         if (!title.isEmpty()) {
@@ -126,6 +141,7 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
     }
 
     private void updateGreetingAndHeaderDate(@NonNull LocalDate date) {
+        if (binding == null || !isAdded()) return;
         int hour = java.time.LocalTime.now().getHour();
         String greeting;
         if (hour >= 4 && hour < 12) {
@@ -142,6 +158,7 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
     private void observeViewModel() {
         // Selected Date
         viewModel.getSelectedDate().observe(getViewLifecycleOwner(), date -> {
+            if (binding == null || !isAdded()) return;
             dateStripAdapter.setSelectedDate(date);
             updateGreetingAndHeaderDate(date);
 
@@ -154,11 +171,13 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
 
         // 7-Day All Done Statuses for Date Strip
         viewModel.getDatesAllDoneStatus().observe(getViewLifecycleOwner(), statuses -> {
+            if (binding == null || !isAdded()) return;
             dateStripAdapter.setAllDoneDates(statuses);
         });
 
         // Habits List
         viewModel.getTodayHabits().observe(getViewLifecycleOwner(), items -> {
+            if (binding == null || !isAdded()) return;
             habitsAdapter.submitList(items);
             if (binding.toggleGroupMode.getCheckedButtonId() == R.id.btn_mode_habits) {
                 boolean isEmpty = (items == null || items.isEmpty());
@@ -171,6 +190,7 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
 
         // To-Do Tasks List
         viewModel.getTodoTasks().observe(getViewLifecycleOwner(), tasks -> {
+            if (binding == null || !isAdded()) return;
             tasksAdapter.submitList(tasks);
             boolean isEmpty = (tasks == null || tasks.isEmpty());
             binding.layoutTasksEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
@@ -178,12 +198,22 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
         });
 
         // Timer Observables
-        viewModel.getTimerElapsedSeconds().observe(getViewLifecycleOwner(), seconds -> updateAdapterTimer());
-        viewModel.getIsTimerRunning().observe(getViewLifecycleOwner(), running -> updateAdapterTimer());
-        viewModel.getActiveTimerHabitId().observe(getViewLifecycleOwner(), id -> updateAdapterTimer());
+        viewModel.getTimerElapsedSeconds().observe(getViewLifecycleOwner(), seconds -> {
+            if (binding == null || !isAdded()) return;
+            updateAdapterTimer();
+        });
+        viewModel.getIsTimerRunning().observe(getViewLifecycleOwner(), running -> {
+            if (binding == null || !isAdded()) return;
+            updateAdapterTimer();
+        });
+        viewModel.getActiveTimerHabitId().observe(getViewLifecycleOwner(), id -> {
+            if (binding == null || !isAdded()) return;
+            updateAdapterTimer();
+        });
     }
 
     private void updateProgressChip(@Nullable java.util.List<TodayHabitUiModel> items, @NonNull LocalDate date) {
+        if (binding == null || !isAdded()) return;
         int total = (items != null) ? items.size() : 0;
         int completed = 0;
         if (items != null) {
@@ -204,6 +234,7 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
     }
 
     private void updateAdapterTimer() {
+        if (binding == null || !isAdded()) return;
         Long habitId = viewModel.getActiveTimerHabitId().getValue();
         Boolean running = viewModel.getIsTimerRunning().getValue();
         Integer seconds = viewModel.getTimerElapsedSeconds().getValue();
@@ -221,6 +252,7 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
 
     @Override
     public void onHabitClick(@NonNull TodayHabitUiModel item) {
+        if (binding == null || !isAdded()) return;
         Intent intent = new Intent(requireContext(), HabitDetailActivity.class);
         intent.putExtra(HabitDetailActivity.EXTRA_HABIT_ID, item.getHabit().getId());
         startActivity(intent);
@@ -228,16 +260,19 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
 
     @Override
     public void onToggleYesNo(@NonNull TodayHabitUiModel item) {
+        if (binding == null || !isAdded()) return;
         viewModel.toggleYesNo(item);
     }
 
     @Override
     public void onAdjustCountable(@NonNull TodayHabitUiModel item, double delta) {
+        if (binding == null || !isAdded()) return;
         viewModel.adjustCountable(item, delta);
     }
 
     @Override
     public void onExactValueClick(@NonNull TodayHabitUiModel item) {
+        if (binding == null || !isAdded()) return;
         LocalDate date = viewModel.getSelectedDate().getValue();
         if (date == null) date = LocalDate.now();
 
@@ -248,12 +283,16 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
                 item.getTargetValue(),
                 item.getHabit().getUnit()
         );
-        dialog.setOnLogSavedListener((d, val) -> viewModel.setExactValue(item, val));
+        dialog.setOnLogSavedListener((d, val) -> {
+            if (binding == null || !isAdded()) return;
+            viewModel.setExactValue(item, val);
+        });
         dialog.show(getChildFragmentManager(), "edit_log");
     }
 
     @Override
     public void onTimerToggleClick(@NonNull TodayHabitUiModel item) {
+        if (binding == null || !isAdded()) return;
         long habitId = item.getHabit().getId();
         Long activeHabit = viewModel.getActiveTimerHabitId().getValue();
         Boolean isRunning = viewModel.getIsTimerRunning().getValue();
@@ -267,9 +306,15 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
             new MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Pomodoro Timer")
                     .setMessage(String.format("Timer paused. Do you want to add %d minutes to today's log?", mins))
-                    .setPositiveButton("Add " + mins + " min", (d, w) -> viewModel.saveTimerMinutes(habitId, item))
+                    .setPositiveButton("Add " + mins + " min", (d, w) -> {
+                        if (binding == null || !isAdded()) return;
+                        viewModel.saveTimerMinutes(habitId, item);
+                    })
                     .setNegativeButton("Keep Running Later", null)
-                    .setNeutralButton("Reset Timer", (d, w) -> viewModel.resetTimer())
+                    .setNeutralButton("Reset Timer", (d, w) -> {
+                        if (binding == null || !isAdded()) return;
+                        viewModel.resetTimer();
+                    })
                     .show();
         } else {
             // Start or resume timer
@@ -279,6 +324,7 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
 
     @Override
     public void onTimerManualClick(@NonNull TodayHabitUiModel item) {
+        if (binding == null || !isAdded()) return;
         onExactValueClick(item);
     }
 
