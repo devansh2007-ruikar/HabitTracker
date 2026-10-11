@@ -12,6 +12,16 @@
     <string name="today_title">Today</string>
     <string name="today_empty_title">All clear for this day!</string>
     <string name="today_empty_subtitle">No habits scheduled, or you\'ve finished everything. Tap + to create one.</string>
+    <string name="greeting_morning">Good morning! ☀️</string>
+    <string name="greeting_afternoon">Good afternoon! ⚡</string>
+    <string name="greeting_evening">Good evening! 🌙</string>
+    <string name="today_progress_chip">%1$d of %2$d done today</string>
+    <string name="all_habits_done_chip">%1$d of %2$d done today 🎉</string>
+    <string name="past_progress_chip">%1$d of %2$d completed</string>
+    <string name="no_habits_scheduled">0 habits scheduled</string>
+    <string name="today_highlight_label">TODAY</string>
+    <string name="quick_log_completed_check">Completed ✓</string>
+    <string name="quick_log_tap_exact">Tap to enter exact value</string>
     <string name="streak_badge_format">🔥 %d</string>
     <string name="streak_days_format">🔥 %d days</string>
     <string name="streak_weeks_format">🔥 %d wks</string>

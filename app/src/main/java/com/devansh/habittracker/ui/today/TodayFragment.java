@@ -125,14 +125,36 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
         }
     }
 
+    private void updateGreetingAndHeaderDate(@NonNull LocalDate date) {
+        int hour = java.time.LocalTime.now().getHour();
+        String greeting;
+        if (hour >= 4 && hour < 12) {
+            greeting = getString(R.string.greeting_morning);
+        } else if (hour >= 12 && hour < 17) {
+            greeting = getString(R.string.greeting_afternoon);
+        } else {
+            greeting = getString(R.string.greeting_evening);
+        }
+        binding.tvGreeting.setText(greeting);
+        binding.tvHeaderDate.setText(date.format(DateTimeFormatter.ofPattern("EEEE, d MMMM")));
+    }
+
     private void observeViewModel() {
         // Selected Date
         viewModel.getSelectedDate().observe(getViewLifecycleOwner(), date -> {
             dateStripAdapter.setSelectedDate(date);
+            updateGreetingAndHeaderDate(date);
 
             boolean isToday = date.equals(LocalDate.now());
-            String formatted = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
-            binding.tvSelectedDateLabel.setText(isToday ? "Today, " + formatted : formatted);
+            String formatted = date.format(DateTimeFormatter.ofPattern("EEE, d MMM"));
+            binding.tvSelectedDateLabel.setText(isToday ? getString(R.string.today_highlight_label) : formatted);
+
+            updateProgressChip(viewModel.getTodayHabits().getValue(), date);
+        });
+
+        // 7-Day All Done Statuses for Date Strip
+        viewModel.getDatesAllDoneStatus().observe(getViewLifecycleOwner(), statuses -> {
+            dateStripAdapter.setAllDoneDates(statuses);
         });
 
         // Habits List
@@ -143,6 +165,8 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
                 binding.layoutTodayEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
                 binding.rvTodayHabits.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
             }
+            LocalDate currentDate = viewModel.getSelectedDate().getValue();
+            updateProgressChip(items, currentDate != null ? currentDate : LocalDate.now());
         });
 
         // To-Do Tasks List
@@ -157,6 +181,26 @@ public class TodayFragment extends Fragment implements TodayHabitAdapter.OnHabit
         viewModel.getTimerElapsedSeconds().observe(getViewLifecycleOwner(), seconds -> updateAdapterTimer());
         viewModel.getIsTimerRunning().observe(getViewLifecycleOwner(), running -> updateAdapterTimer());
         viewModel.getActiveTimerHabitId().observe(getViewLifecycleOwner(), id -> updateAdapterTimer());
+    }
+
+    private void updateProgressChip(@Nullable java.util.List<TodayHabitUiModel> items, @NonNull LocalDate date) {
+        int total = (items != null) ? items.size() : 0;
+        int completed = 0;
+        if (items != null) {
+            for (TodayHabitUiModel item : items) {
+                if (item.isCompleted()) completed++;
+            }
+        }
+        boolean isToday = date.equals(LocalDate.now());
+        if (total == 0) {
+            binding.chipTodayProgress.setText(getString(R.string.no_habits_scheduled));
+        } else if (completed >= total) {
+            binding.chipTodayProgress.setText(getString(R.string.all_habits_done_chip, completed, total));
+        } else if (isToday) {
+            binding.chipTodayProgress.setText(getString(R.string.today_progress_chip, completed, total));
+        } else {
+            binding.chipTodayProgress.setText(getString(R.string.past_progress_chip, completed, total));
+        }
     }
 
     private void updateAdapterTimer() {

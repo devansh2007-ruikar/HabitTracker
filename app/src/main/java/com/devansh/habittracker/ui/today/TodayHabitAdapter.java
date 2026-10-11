@@ -1,5 +1,7 @@
 package com.devansh.habittracker.ui.today;
 
+import android.content.res.ColorStateList;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +17,9 @@ import com.devansh.habittracker.R;
 import com.devansh.habittracker.databinding.ItemTodayHabitBinding;
 import com.devansh.habittracker.ui.model.TodayHabitUiModel;
 
-import java.util.Objects;
-
 /**
- * Adapter presenting scheduled habit cards with quick-logging controls.
+ * Adapter presenting scheduled habit cards with color accent bar, circular progress ring,
+ * JetBrains Mono streak numbers, and quick-logging controls with tactile check animations.
  */
 public class TodayHabitAdapter extends ListAdapter<TodayHabitUiModel, TodayHabitAdapter.HabitViewHolder> {
 
@@ -30,6 +31,14 @@ public class TodayHabitAdapter extends ListAdapter<TodayHabitUiModel, TodayHabit
         void onTimerToggleClick(@NonNull TodayHabitUiModel item);
         void onTimerManualClick(@NonNull TodayHabitUiModel item);
     }
+
+    private static final int[] ACCENT_COLORS = {
+            R.color.gdg_blue,
+            R.color.gdg_green,
+            R.color.gdg_yellow,
+            R.color.gdg_red,
+            R.color.gdg_purple
+    };
 
     private final OnHabitActionListener listener;
     private long activeTimerHabitId = -1;
@@ -95,22 +104,28 @@ public class TodayHabitAdapter extends ListAdapter<TodayHabitUiModel, TodayHabit
 
             binding.tvHabitName.setText(item.getHabit().getName());
             binding.tvStreakCount.setText(String.valueOf(item.getStreak()));
-
-            // Subtitle & Progress
             binding.tvProgressSubtitle.setText(item.getProgressSubtitle());
-            int pct = item.getProgressPercentage();
-            binding.tvProgressPercent.setText(pct + "%");
-            binding.progressBar.setProgress(pct);
+
+            // Color Accent Bar based on habit ID (GDG Palette)
+            int accentColorRes = ACCENT_COLORS[(int) (Math.abs(item.getHabit().getId()) % ACCENT_COLORS.length)];
+            int accentColor = ContextCompat.getColor(itemView.getContext(), accentColorRes);
+            binding.viewAccentBar.setBackgroundTintList(ColorStateList.valueOf(accentColor));
+
+            // Circular Progress Ring & Completion Icon
+            int pct = Math.min(100, Math.max(0, item.getProgressPercentage()));
+            binding.progressRing.setProgress(pct);
 
             int colorComplete = ContextCompat.getColor(itemView.getContext(), R.color.status_complete);
-            int colorPrimary = ContextCompat.getColor(itemView.getContext(), R.color.primary);
 
             if (item.isCompleted()) {
-                binding.progressBar.setIndicatorColor(colorComplete);
-                binding.tvProgressPercent.setTextColor(colorComplete);
+                binding.progressRing.setIndicatorColor(colorComplete);
+                binding.ivProgressCompleteIcon.setVisibility(View.VISIBLE);
+                binding.tvProgressPercent.setVisibility(View.GONE);
             } else {
-                binding.progressBar.setIndicatorColor(colorPrimary);
-                binding.tvProgressPercent.setTextColor(colorPrimary);
+                binding.progressRing.setIndicatorColor(accentColor);
+                binding.ivProgressCompleteIcon.setVisibility(View.GONE);
+                binding.tvProgressPercent.setVisibility(View.VISIBLE);
+                binding.tvProgressPercent.setText(pct + "%");
             }
 
             // Quick logging visibility by HabitType
@@ -122,13 +137,20 @@ public class TodayHabitAdapter extends ListAdapter<TodayHabitUiModel, TodayHabit
             // 1. YES_NO configuration
             if (type == HabitType.YES_NO) {
                 if (item.isCompleted()) {
-                    binding.btnToggleYesNo.setText("Completed ✓");
+                    binding.btnToggleYesNo.setText(R.string.quick_log_completed_check);
                     binding.btnToggleYesNo.setIconResource(R.drawable.ic_check);
+                    binding.btnToggleYesNo.setIconTint(ColorStateList.valueOf(colorComplete));
                 } else {
-                    binding.btnToggleYesNo.setText("Mark Complete");
+                    binding.btnToggleYesNo.setText(R.string.quick_log_complete);
                     binding.btnToggleYesNo.setIconResource(R.drawable.ic_check);
+                    binding.btnToggleYesNo.setIconTint(ColorStateList.valueOf(accentColor));
                 }
-                binding.btnToggleYesNo.setOnClickListener(v -> listener.onToggleYesNo(item));
+                binding.btnToggleYesNo.setOnClickListener(v -> {
+                    v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                    animateCheck(binding.layoutProgressRing);
+                    animateCheck(binding.btnToggleYesNo);
+                    listener.onToggleYesNo(item);
+                });
             }
 
             // 2. COUNTABLE configuration
@@ -142,8 +164,17 @@ public class TodayHabitAdapter extends ListAdapter<TodayHabitUiModel, TodayHabit
                 }
                 binding.btnExactValue.setText(valText);
 
-                binding.btnDecrementCount.setOnClickListener(v -> listener.onAdjustCountable(item, -1.0));
-                binding.btnIncrementCount.setOnClickListener(v -> listener.onAdjustCountable(item, 1.0));
+                binding.btnDecrementCount.setOnClickListener(v -> {
+                    v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                    listener.onAdjustCountable(item, -1.0);
+                });
+                binding.btnIncrementCount.setOnClickListener(v -> {
+                    v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                    if (item.getCurrentValue() + 1.0 >= item.getTargetValue()) {
+                        animateCheck(binding.layoutProgressRing);
+                    }
+                    listener.onAdjustCountable(item, 1.0);
+                });
                 binding.btnExactValue.setOnClickListener(v -> listener.onExactValueClick(item));
             }
 
@@ -165,12 +196,26 @@ public class TodayHabitAdapter extends ListAdapter<TodayHabitUiModel, TodayHabit
                     binding.btnTimerToggle.setIconResource(R.drawable.ic_play);
                 }
 
-                binding.btnTimerToggle.setOnClickListener(v -> listener.onTimerToggleClick(item));
+                binding.btnTimerToggle.setOnClickListener(v -> {
+                    v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                    listener.onTimerToggleClick(item);
+                });
                 binding.btnTimerManual.setOnClickListener(v -> listener.onTimerManualClick(item));
             }
 
             // Entire card click -> opens habit detail/stats
-            itemView.setOnClickListener(v -> listener.onHabitClick(item));
+            binding.cardHabit.setOnClickListener(v -> listener.onHabitClick(item));
+        }
+
+        private static void animateCheck(@NonNull View view) {
+            view.setScaleX(0.88f);
+            view.setScaleY(0.88f);
+            view.animate()
+                    .scaleX(1.15f)
+                    .scaleY(1.15f)
+                    .setDuration(130)
+                    .withEndAction(() -> view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start())
+                    .start();
         }
     }
 }

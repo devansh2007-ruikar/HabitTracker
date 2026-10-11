@@ -4,48 +4,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_date_strip"
-    android:layout_width="56dp"
-    android:layout_height="76dp"
+    style="@style/Widget.HabitTracker.Card"
+    android:layout_width="58dp"
+    android:layout_height="78dp"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
     android:clickable="true"
-    android:focusable="true"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="?attr/colorOutline">
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="6dp">
+        android:padding="4dp">
 
         <TextView
             android:id="@+id/tv_day_of_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:fontFamily="@font/space_grotesk"
+            android:textStyle="bold"
+            android:textSize="11sp"
             android:textColor="?attr/colorOnSurfaceVariant"
-            tools:text="Mon" />
+            tools:text="MON" />
 
         <TextView
             android:id="@+id/tv_day_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:textColor="?attr/colorOnSurface"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
             tools:text="12" />
 
+        <!-- Green dot displayed when all scheduled habits on this day are completed -->
         <View
             android:id="@+id/view_dot_indicator"
             android:layout_width="6dp"
             android:layout_height="6dp"
             android:layout_marginTop="4dp"
-            android:background="@drawable/ic_check"
+            android:background="@drawable/bg_dot_complete"
             android:visibility="gone"
             tools:visibility="visible" />
 

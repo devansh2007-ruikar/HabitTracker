@@ -43,6 +43,7 @@ public class TodayViewModel extends AndroidViewModel {
 
     private final MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>(LocalDate.now());
     private final MediatorLiveData<List<TodayHabitUiModel>> todayHabits = new MediatorLiveData<>();
+    private final MutableLiveData<Map<LocalDate, Boolean>> datesAllDoneStatus = new MutableLiveData<>(Collections.emptyMap());
 
     // Cached raw data from repository
     private List<Habit> cachedActiveHabits = Collections.emptyList();
@@ -95,6 +96,10 @@ public class TodayViewModel extends AndroidViewModel {
 
     public LiveData<List<TodayHabitUiModel>> getTodayHabits() {
         return todayHabits;
+    }
+
+    public LiveData<Map<LocalDate, Boolean>> getDatesAllDoneStatus() {
+        return datesAllDoneStatus;
     }
 
     public LiveData<Long> getActiveTimerHabitId() {
@@ -184,6 +189,36 @@ public class TodayViewModel extends AndroidViewModel {
         }
 
         todayHabits.setValue(uiModels);
+
+        // Compute 7-day all-done statuses for the date selector strip
+        Map<LocalDate, Boolean> allDoneMap = new HashMap<>();
+        LocalDate todayDate = LocalDate.now();
+        for (int i = 0; i < 7; i++) {
+            LocalDate d = todayDate.minusDays(i);
+            int scheduledCount = 0;
+            int completedCount = 0;
+            for (Habit h : cachedActiveHabits) {
+                boolean isSched = ScheduleRules.isScheduled(h, d);
+                boolean isTimesPerWeek = h.getSchedule().getType() == ScheduleType.TIMES_PER_WEEK;
+                if (!isSched && !isTimesPerWeek) continue;
+                if (isTimesPerWeek && d.isBefore(h.getCreatedDate())) continue;
+
+                scheduledCount++;
+                List<HabitLog> logs = logsByHabit.getOrDefault(h.getId(), Collections.emptyList());
+                HabitLog matchedLog = null;
+                for (HabitLog log : logs) {
+                    if (log.getDate().equals(d)) {
+                        matchedLog = log;
+                        break;
+                    }
+                }
+                if (ScheduleRules.isComplete(h, matchedLog)) {
+                    completedCount++;
+                }
+            }
+            allDoneMap.put(d, scheduledCount > 0 && completedCount >= scheduledCount);
+        }
+        datesAllDoneStatus.setValue(allDoneMap);
     }
 
     // ═══════════════════════════════════════════════════════════════════

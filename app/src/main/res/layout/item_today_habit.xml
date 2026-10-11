@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,220 +8,277 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="14dp"
+    android:background="@drawable/bg_brutalist_card"
     android:clickable="true"
-    android:focusable="true"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="?attr/colorOutlineVariant"
-    app:cardBackgroundColor="?attr/colorSurface">
+    android:focusable="true">
 
-    <LinearLayout
+    <!-- Foreground Content Wrapper (offset by shadow margin 4dp bottom/right) -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp">
 
-        <!-- Header: Habit Name + Streak Pill -->
-        <RelativeLayout
+        <!-- Vertical Color Accent Bar on the Left Edge -->
+        <View
+            android:id="@+id/view_accent_bar"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/layout_card_inner"
+            android:layout_alignBottom="@+id/layout_card_inner"
+            android:background="@drawable/bg_accent_bar" />
+
+        <LinearLayout
+            android:id="@+id/layout_card_inner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/view_accent_bar"
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="14dp">
 
-            <TextView
-                android:id="@+id/tv_habit_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/layout_streak_badge"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:textColor="?attr/colorOnSurface"
-                android:textStyle="bold"
-                tools:text="Morning Meditation" />
+            <!-- Top Row: Habit Name + Streak Badge + Progress Ring -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <!-- Streak Pill Badge -->
-            <LinearLayout
-                android:id="@+id/layout_streak_badge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_fire"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="4dp">
+                <!-- Left: Habit Name & Subtitle -->
+                <LinearLayout
+                    android:id="@+id/layout_habit_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/layout_top_right"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:paddingEnd="8dp">
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:contentDescription="@string/stat_current_streak"
-                    app:srcCompat="@drawable/ic_fire" />
+                    <TextView
+                        android:id="@+id/tv_habit_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:fontFamily="@font/space_grotesk"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textStyle="bold"
+                        tools:text="Morning Meditation" />
 
-                <TextView
-                    android:id="@+id/tv_streak_count"
+                    <TextView
+                        android:id="@+id/tv_progress_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/inter"
+                        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        tools:text="15 / 30 min • Daily" />
+
+                </LinearLayout>
+
+                <!-- Right: Streak Badge & Circular Progress Ring -->
+                <LinearLayout
+                    android:id="@+id/layout_top_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                    android:textColor="@color/streak_fire"
-                    android:textStyle="bold"
-                    tools:text="5" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- 🔥 Streak Badge in JetBrains Mono -->
+                    <LinearLayout
+                        android:id="@+id/layout_streak_badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_streak_badge"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🔥"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_streak_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/jetbrains_mono"
+                            android:textColor="@color/streak_fire"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            tools:text="5" />
+
+                    </LinearLayout>
+
+                    <!-- Circular Progress Ring -->
+                    <FrameLayout
+                        android:id="@+id/layout_progress_ring"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp">
+
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/progress_ring"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_gravity="center"
+                            app:indicatorSize="40dp"
+                            app:trackThickness="4dp"
+                            app:trackCornerRadius="2dp"
+                            app:trackColor="?attr/colorSurfaceVariant"
+                            app:indicatorColor="?attr/colorPrimary"
+                            tools:progress="60" />
+
+                        <TextView
+                            android:id="@+id/tv_progress_percent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/jetbrains_mono"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="60%" />
+
+                        <ImageView
+                            android:id="@+id/iv_progress_complete_icon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            android:contentDescription="Completed"
+                            app:srcCompat="@drawable/ic_check"
+                            app:tint="@color/status_complete" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- ════════ Quick Logging Actions ════════ -->
+
+            <!-- 1. YES_NO Action Container -->
+            <LinearLayout
+                android:id="@+id/layout_action_yes_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_toggle_yes_no"
+                    style="@style/Widget.HabitTracker.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/quick_log_complete"
+                    android:text="@string/quick_log_complete"
+                    app:icon="@drawable/ic_check" />
 
             </LinearLayout>
 
-        </RelativeLayout>
-
-        <!-- Progress Text / Target Description -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp">
-
-            <TextView
-                android:id="@+id/tv_progress_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                tools:text="15 / 30 min" />
-
-            <TextView
-                android:id="@+id/tv_progress_percent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold"
-                tools:text="50%" />
-
-        </RelativeLayout>
-
-        <!-- Progress Bar -->
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="12dp"
-            app:trackCornerRadius="3dp"
-            app:trackColor="?attr/colorSurfaceVariant"
-            app:indicatorColor="?attr/colorPrimary"
-            tools:progress="50" />
-
-        <!-- ════════ Quick Logging Actions ════════ -->
-
-        <!-- 1. YES_NO Action Container -->
-        <LinearLayout
-            android:id="@+id/layout_action_yes_no"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_toggle_yes_no"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <!-- 2. COUNTABLE Action Container -->
+            <LinearLayout
+                android:id="@+id/layout_action_countable"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:contentDescription="@string/quick_log_complete"
-                android:text="@string/quick_log_complete"
-                app:icon="@drawable/ic_check" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="gone">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_decrement_count"
+                    style="@style/Widget.HabitTracker.Button.Outlined"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/quick_log_decrement"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    app:icon="@drawable/ic_minus"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_exact_value"
+                    style="@style/Widget.HabitTracker.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:contentDescription="@string/quick_log_tap_exact"
+                    tools:text="15 pages" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_increment_count"
+                    style="@style/Widget.HabitTracker.Button"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/quick_log_increment"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    app:icon="@drawable/ic_plus"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+            </LinearLayout>
+
+            <!-- 3. TIMED Action Container (Pomodoro timer + manual input) -->
+            <LinearLayout
+                android:id="@+id/layout_action_timed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="gone">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_timer_toggle"
+                    style="@style/Widget.HabitTracker.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/timer_start"
+                    android:text="@string/timer_start"
+                    app:icon="@drawable/ic_play" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_timer_manual"
+                    style="@style/Widget.HabitTracker.Button.Outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/timer_manual"
+                    android:text="@string/timer_manual"
+                    app:icon="@drawable/ic_timer" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <!-- 2. COUNTABLE Action Container -->
-        <LinearLayout
-            android:id="@+id/layout_action_countable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:visibility="gone">
+    </RelativeLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_decrement_count"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:contentDescription="@string/quick_log_decrement"
-                android:insetLeft="0dp"
-                android:insetTop="0dp"
-                android:insetRight="0dp"
-                android:insetBottom="0dp"
-                android:padding="0dp"
-                app:icon="@drawable/ic_minus"
-                app:iconGravity="textStart"
-                app:iconPadding="0dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_exact_value"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:contentDescription="Tap to enter exact value"
-                tools:text="15 pages" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_increment_count"
-                style="@style/Widget.Material3.Button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:contentDescription="@string/quick_log_increment"
-                android:insetLeft="0dp"
-                android:insetTop="0dp"
-                android:insetRight="0dp"
-                android:insetBottom="0dp"
-                android:padding="0dp"
-                app:icon="@drawable/ic_plus"
-                app:iconGravity="textStart"
-                app:iconPadding="0dp" />
-
-        </LinearLayout>
-
-        <!-- 3. TIMED Action Container (Pomodoro timer + manual input) -->
-        <LinearLayout
-            android:id="@+id/layout_action_timed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:visibility="gone">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_timer_toggle"
-                style="@style/Widget.Material3.Button"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:contentDescription="@string/timer_start"
-                android:text="@string/timer_start"
-                app:icon="@drawable/ic_play" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_timer_manual"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@string/timer_manual"
-                android:text="@string/timer_manual"
-                app:icon="@drawable/ic_timer" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</com.google.android.material.card.MaterialCardView>
+</FrameLayout>
