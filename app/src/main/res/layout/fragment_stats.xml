@@ -15,27 +15,31 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Habit Selector Dropdown / Spinner -->
+        <!-- Habit Selector Dropdown -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_select_habit"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Select Habit"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusTopStart="12dp">
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeColor="?attr/colorOutline"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp">
 
             <AutoCompleteTextView
                 android:id="@+id/actv_select_habit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/space_grotesk"
+                android:textStyle="bold"
                 android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Container for Stats Content (hidden when no habit is selected) -->
+        <!-- Container for Stats Content -->
         <LinearLayout
             android:id="@+id/layout_stats_content"
             android:layout_width="match_parent"
@@ -43,26 +47,28 @@
             android:layout_marginTop="16dp"
             android:orientation="vertical">
 
-            <!-- Streaks Row (Current, Best, Total) -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!--  Colored Tiles Row (Current Streak, Longest, Completion %)  -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
-                <!-- Current Streak Card -->
-                <com.google.android.material.card.MaterialCardView
+                <!-- 1. Current Streak Colored Tile (GDG Red Tint) -->
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
                     android:layout_weight="1"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceVariant">
+                    android:background="@drawable/bg_tile_streak_current">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="12dp">
@@ -71,43 +77,48 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:contentDescription="@string/stat_current_streak"
-                            app:srcCompat="@drawable/ic_fire" />
+                            app:srcCompat="@drawable/ic_fire"
+                            app:tint="@color/streak_fire" />
 
                         <TextView
                             android:id="@+id/tv_stat_current_streak"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="?attr/colorOnSurface"
+                            android:fontFamily="@font/jetbrains_mono"
+                            android:textSize="17sp"
                             android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface"
                             tools:text="5 d" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
                             android:text="@string/stat_current_streak"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
                     </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
-                <!-- Best Streak Card -->
-                <com.google.android.material.card.MaterialCardView
+                <!-- 2. Longest Streak Colored Tile (GDG Yellow Tint) -->
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_weight="1"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceVariant">
+                    android:background="@drawable/bg_tile_streak_best">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="12dp">
@@ -116,42 +127,47 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:contentDescription="@string/stat_best_streak"
-                            app:srcCompat="@drawable/ic_trophy" />
+                            app:srcCompat="@drawable/ic_trophy"
+                            app:tint="@color/gdg_yellow" />
 
                         <TextView
                             android:id="@+id/tv_stat_best_streak"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="?attr/colorOnSurface"
+                            android:fontFamily="@font/jetbrains_mono"
+                            android:textSize="17sp"
                             android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface"
                             tools:text="14 d" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
                             android:text="@string/stat_best_streak"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
                     </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
-                <!-- Total Completions Card -->
-                <com.google.android.material.card.MaterialCardView
+                <!-- 3. Completion % Colored Tile (GDG Green Tint) -->
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_weight="1"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceVariant">
+                    android:background="@drawable/bg_tile_completion">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="12dp">
@@ -159,47 +175,51 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:contentDescription="@string/stat_total_completions"
+                            android:contentDescription="@string/stat_completion_rate"
                             app:srcCompat="@drawable/ic_check"
                             app:tint="@color/status_complete" />
 
                         <TextView
-                            android:id="@+id/tv_stat_total_completions"
+                            android:id="@+id/tv_completion_rate_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="?attr/colorOnSurface"
+                            android:fontFamily="@font/jetbrains_mono"
+                            android:textSize="17sp"
                             android:textStyle="bold"
-                            tools:text="28" />
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="85%" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/stat_completion_rate"
+                            android:fontFamily="@font/space_grotesk"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
                             android:textColor="?attr/colorOnSurfaceVariant" />
 
                     </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
             </LinearLayout>
 
-            <!-- Completion Rate Card -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!--  Completion Rate Range Card                                -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:cardBackgroundColor="?attr/colorSurface">
+                android:background="@drawable/bg_brutalist_card">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
                     android:orientation="vertical"
                     android:padding="16dp">
 
@@ -210,20 +230,37 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/stat_completion_rate"
+                            android:text="Completion Analysis"
+                            android:fontFamily="@font/space_grotesk"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tv_completion_rate_value"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                            android:textColor="?attr/colorPrimary"
-                            android:textStyle="bold"
-                            tools:text="85%" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total: "
+                                android:fontFamily="@font/inter"
+                                android:textSize="12sp"
+                                android:textColor="?attr/colorOnSurfaceVariant" />
+
+                            <TextView
+                                android:id="@+id/tv_stat_total_completions"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/jetbrains_mono"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorPrimary"
+                                tools:text="28" />
+
+                        </LinearLayout>
 
                     </RelativeLayout>
 
@@ -239,26 +276,29 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_range_7_days"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            style="@style/Widget.HabitTracker.Button.Outlined"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
                             android:layout_weight="1"
+                            android:textSize="12sp"
                             android:text="@string/range_7_days" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_range_30_days"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            style="@style/Widget.HabitTracker.Button.Outlined"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
                             android:layout_weight="1"
+                            android:textSize="12sp"
                             android:text="@string/range_30_days" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_range_all_time"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            style="@style/Widget.HabitTracker.Button.Outlined"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
                             android:layout_weight="1"
+                            android:textSize="12sp"
                             android:text="@string/range_all" />
 
                     </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -267,7 +307,7 @@
                         android:id="@+id/progress_completion_rate"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="14dp"
                         app:trackCornerRadius="4dp"
                         app:trackColor="?attr/colorSurfaceVariant"
                         app:indicatorColor="?attr/colorPrimary"
@@ -275,22 +315,22 @@
 
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
-            <!-- Weekly Bar Chart Card -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!--  Weekly Bar Chart Card                                     -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:cardBackgroundColor="?attr/colorSurface">
+                android:background="@drawable/bg_brutalist_card">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
                     android:orientation="vertical"
                     android:padding="16dp">
 
@@ -298,6 +338,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/weekly_chart_title"
+                        android:fontFamily="@font/space_grotesk"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                         android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
@@ -306,26 +347,26 @@
                         android:id="@+id/bar_chart_weekly"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:layout_marginTop="8dp" />
+                        android:layout_marginTop="10dp" />
 
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
-            <!-- Interactive Activity Calendar Card -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!--  Activity Calendar Heatmap Card                            -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:cardBackgroundColor="?attr/colorSurface">
+                android:background="@drawable/bg_brutalist_card">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
                     android:orientation="vertical"
                     android:padding="16dp">
 
@@ -349,6 +390,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
+                            android:fontFamily="@font/space_grotesk"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
@@ -373,13 +415,13 @@
                         android:layout_marginTop="8dp"
                         android:orientation="horizontal">
 
-                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="M" android:textColor="?attr/colorOnSurfaceVariant" />
-                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T" android:textColor="?attr/colorOnSurfaceVariant" />
-                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="W" android:textColor="?attr/colorOnSurfaceVariant" />
-                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="T" android:textColor="?attr/colorOnSurfaceVariant" />
-                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="F" android:textColor="?attr/colorOnSurfaceVariant" />
-                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="S" android:textColor="?attr/colorOnSurfaceVariant" />
-                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="S" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:fontFamily="@font/space_grotesk" android:textStyle="bold" android:text="M" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:fontFamily="@font/space_grotesk" android:textStyle="bold" android:text="T" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:fontFamily="@font/space_grotesk" android:textStyle="bold" android:text="W" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:fontFamily="@font/space_grotesk" android:textStyle="bold" android:text="T" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:fontFamily="@font/space_grotesk" android:textStyle="bold" android:text="F" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:fontFamily="@font/space_grotesk" android:textStyle="bold" android:text="S" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <TextView style="@style/TextAppearance.Material3.LabelSmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:fontFamily="@font/space_grotesk" android:textStyle="bold" android:text="S" android:textColor="?attr/colorOnSurfaceVariant" />
 
                     </LinearLayout>
 
@@ -398,27 +440,27 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="14dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <View android:layout_width="8dp" android:layout_height="8dp" android:background="@color/status_complete" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="@string/legend_complete" android:textAppearance="@style/TextAppearance.Material3.LabelSmall" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="@drawable/bg_dot_complete" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="@string/legend_complete" android:fontFamily="@font/space_grotesk" android:textSize="11sp" android:textColor="?attr/colorOnSurfaceVariant" />
 
-                        <View android:layout_width="8dp" android:layout_height="8dp" android:layout_marginStart="12dp" android:background="@color/status_partial" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="@string/legend_partial" android:textAppearance="@style/TextAppearance.Material3.LabelSmall" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="10dp" android:background="@drawable/bg_dot_complete" app:backgroundTint="@color/status_partial" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="@string/legend_partial" android:fontFamily="@font/space_grotesk" android:textSize="11sp" android:textColor="?attr/colorOnSurfaceVariant" />
 
-                        <View android:layout_width="8dp" android:layout_height="8dp" android:layout_marginStart="12dp" android:background="@color/status_missed" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="@string/legend_missed" android:textAppearance="@style/TextAppearance.Material3.LabelSmall" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="10dp" android:background="@drawable/bg_dot_complete" app:backgroundTint="@color/status_missed" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="@string/legend_missed" android:fontFamily="@font/space_grotesk" android:textSize="11sp" android:textColor="?attr/colorOnSurfaceVariant" />
 
-                        <View android:layout_width="8dp" android:layout_height="8dp" android:layout_marginStart="12dp" android:background="@color/status_not_scheduled" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="@string/legend_not_scheduled" android:textAppearance="@style/TextAppearance.Material3.LabelSmall" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="10dp" android:background="@drawable/bg_dot_complete" app:backgroundTint="@color/status_not_scheduled" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="@string/legend_not_scheduled" android:fontFamily="@font/space_grotesk" android:textSize="11sp" android:textColor="?attr/colorOnSurfaceVariant" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
         </LinearLayout>
 
@@ -433,18 +475,27 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:contentDescription="@string/stats_title"
-                app:srcCompat="@drawable/ic_stats"
-                app:tint="?attr/colorPrimary" />
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_brutalist_card">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/stats_title"
+                    app:srcCompat="@drawable/ic_stats"
+                    app:tint="?attr/colorPrimary" />
+
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="No habits available"
+                android:fontFamily="@font/space_grotesk"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold" />
@@ -454,6 +505,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
+                android:fontFamily="@font/inter"
                 android:text="Create a habit first to see statistics, streaks, and charts."
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 android:textColor="?attr/colorOnSurfaceVariant" />

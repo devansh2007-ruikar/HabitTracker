@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchFragment(Fragment fragment, String title) {
         binding.toolbar.setTitle(title);
+        fragment.setEnterTransition(new com.google.android.material.transition.MaterialSharedAxis(
+                com.google.android.material.transition.MaterialSharedAxis.Z, true));
+        fragment.setExitTransition(new com.google.android.material.transition.MaterialSharedAxis(
+                com.google.android.material.transition.MaterialSharedAxis.Z, false));
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();

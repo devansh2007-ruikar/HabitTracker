@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         app:singleSelection="true"
         app:selectionRequired="true"
@@ -23,7 +23,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_active"
-            style="@style/Widget.Material3.Chip.Filter"
+            style="@style/Widget.HabitTracker.Chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -31,14 +31,14 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_archived"
-            style="@style/Widget.Material3.Chip.Filter"
+            style="@style/Widget.HabitTracker.Chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/filter_archived" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_all"
-            style="@style/Widget.Material3.Chip.Filter"
+            style="@style/Widget.HabitTracker.Chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/filter_all" />
@@ -50,7 +50,7 @@
         android:id="@+id/rv_habits"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:clipToPadding="false"
         android:paddingBottom="96dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -76,18 +76,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible">
 
-        <ImageView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:contentDescription="@string/habits_empty_title"
-            app:srcCompat="@drawable/ic_habits"
-            app:tint="?attr/colorPrimary" />
+        <FrameLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_brutalist_card">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/habits_empty_title"
+                app:srcCompat="@drawable/ic_habits"
+                app:tint="?attr/colorPrimary" />
+
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/habits_empty_title"
+            android:fontFamily="@font/space_grotesk"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:textColor="?attr/colorOnSurface"
             android:textStyle="bold" />
@@ -97,16 +106,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
+            android:fontFamily="@font/inter"
             android:text="@string/habits_empty_subtitle"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             android:textColor="?attr/colorOnSurfaceVariant" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_empty_add_habit"
-            style="@style/Widget.Material3.Button.TonalButton"
+            style="@style/Widget.HabitTracker.Button"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:contentDescription="@string/add_habit"
             android:text="@string/add_habit"
             app:icon="@drawable/ic_add" />

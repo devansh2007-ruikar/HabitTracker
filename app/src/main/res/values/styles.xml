@@ -74,4 +74,37 @@
         <item name="android:minHeight">@dimen/btn_height</item>
     </style>
 
+    <!-- Bottom Navigation View with Filled Accent Pill on Selected Item -->
+    <style name="Widget.HabitTracker.BottomNav" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/Widget.HabitTracker.BottomNav.ActiveIndicator</item>
+        <item name="itemIconTint">@color/bottom_nav_icon_color</item>
+        <item name="itemTextColor">@color/bottom_nav_text_color</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.HabitTracker.BottomNav.Active</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.HabitTracker.BottomNav.Inactive</item>
+    </style>
+
+    <style name="Widget.HabitTracker.BottomNav.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/primary_container</item>
+        <item name="android:width">64dp</item>
+        <item name="android:height">32dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.HabitTracker.Pill</item>
+    </style>
+
+    <style name="ShapeAppearance.HabitTracker.Pill" parent="ShapeAppearance.Material3.Corner.Full">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="TextAppearance.HabitTracker.BottomNav.Active" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/space_grotesk</item>
+        <item name="android:fontFamily">@font/space_grotesk</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.HabitTracker.BottomNav.Inactive" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

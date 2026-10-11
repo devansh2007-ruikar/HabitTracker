@@ -88,6 +88,9 @@ public class CalendarGridAdapter extends RecyclerView.Adapter<CalendarGridAdapte
         DayStatus status = statusMap.getOrDefault(date, DayStatus.FUTURE);
         bindStatusStyling(holder, date, status);
 
+        String desc = date.getDayOfMonth() + " " + date.getMonth().name().toLowerCase() + ", " + status.name().toLowerCase().replace('_', ' ');
+        holder.binding.tvDayCell.setContentDescription(desc);
+
         // Clickable for past & today dates
         if (!date.isAfter(LocalDate.now())) {
             holder.itemView.setOnClickListener(v -> listener.onDayClicked(date));

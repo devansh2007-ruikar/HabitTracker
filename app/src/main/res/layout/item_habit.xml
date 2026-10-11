@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,18 +7,16 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="14dp"
+    android:background="@drawable/bg_brutalist_card"
     android:clickable="true"
-    android:focusable="true"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="?attr/colorOutlineVariant"
-    app:cardBackgroundColor="?attr/colorSurface">
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -32,6 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/ib_menu"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/space_grotesk"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold"
@@ -44,7 +44,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Habit menu"
+                android:contentDescription="Habit menu options"
                 app:srcCompat="@drawable/ic_more_vert"
                 app:tint="?attr/colorOnSurfaceVariant" />
 
@@ -63,12 +63,14 @@
                 android:id="@+id/tv_schedule_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorSurfaceVariant"
+                android:background="@drawable/bg_pill_badge"
                 android:paddingStart="8dp"
                 android:paddingTop="3dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="3dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:fontFamily="@font/space_grotesk"
+                android:textSize="11sp"
+                android:textStyle="bold"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 tools:text="Mon, Wed, Fri" />
 
@@ -78,12 +80,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:background="?attr/colorSurfaceVariant"
+                android:background="@drawable/bg_pill_badge"
                 android:paddingStart="8dp"
                 android:paddingTop="3dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="3dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:fontFamily="@font/space_grotesk"
+                android:textSize="11sp"
+                android:textStyle="bold"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 tools:text="Target: 1 session" />
 
@@ -93,13 +97,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:background="?attr/colorPrimaryContainer"
+                android:background="@drawable/bg_pill_badge"
                 android:paddingStart="8dp"
                 android:paddingTop="3dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="3dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                android:textColor="?attr/colorOnPrimaryContainer"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
                 android:visibility="gone"
                 tools:text="⏰ 08:30"
                 tools:visibility="visible" />
@@ -110,14 +116,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:background="?attr/colorOutline"
+                android:background="@drawable/bg_pill_badge"
                 android:paddingStart="8dp"
                 android:paddingTop="3dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="3dp"
                 android:text="@string/filter_archived"
-                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                android:textColor="?attr/colorOnSurface"
+                android:fontFamily="@font/space_grotesk"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorError"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -125,4 +133,4 @@
 
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</FrameLayout>
