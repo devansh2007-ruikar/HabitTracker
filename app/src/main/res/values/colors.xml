@@ -58,7 +58,8 @@
     <color name="streak_fire">#EA4335</color>
     <color name="streak_fire_container">#FCE8E6</color>
 
-    <!-- Static Palette -->
+    <!-- Static Palette & Icon -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="ic_launcher_bg">#FFFFFF</color>
 </resources>

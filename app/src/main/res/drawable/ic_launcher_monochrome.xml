@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Segment 1 (Top-left downward stroke) -->
+    <path
+        android:pathData="M 36,50 L 42,58"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Segment 2 (Bottom pivot bend) -->
+    <path
+        android:pathData="M 44.5,61.5 Q 48,66.5 53,60"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Segment 3 (Mid upward stroke) -->
+    <path
+        android:pathData="M 55.5,56.5 L 63,47"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Segment 4 (Top-right upward stroke) -->
+    <path
+        android:pathData="M 65.5,43.5 L 73,34"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+</vector>

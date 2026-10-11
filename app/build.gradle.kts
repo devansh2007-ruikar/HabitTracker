@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.core.splashscreen)
 
     // Architecture Components (MVVM)
     implementation(libs.androidx.lifecycle.viewmodel)
