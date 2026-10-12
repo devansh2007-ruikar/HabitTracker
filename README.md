@@ -45,17 +45,6 @@
 
 ---
 
-## 📸 Screenshots
-
-| 1. Today Screen | 2. Create Habit | 3. Stats & Calendar |
-|:---:|:---:|:---:|
-| ![Today Screen](docs/screenshots/01_today_screen.png)<br><sub>7-day date strip, streak badges, quick logging</sub> | ![Create Habit](docs/screenshots/02_create_habit.png)<br><sub>Types, bitmask weekday chips, reminder picker</sub> | ![Stats & Calendar](docs/screenshots/03_stats_calendar.png)<br><sub>Colored monthly grid & MPAndroidChart bars</sub> |
-
-| 4. Notification Action | 5. Home Screen Widget | 6. Dark Theme |
-|:---:|:---:|:---:|
-| ![Notification](docs/screenshots/04_notification.png)<br><sub>"Mark done" direct action & "Open"</sub> | ![Home Widget](docs/screenshots/05_widget.png)<br><sub>RemoteViews with tap-to-complete</sub> | ![Dark Mode](docs/screenshots/06_dark_mode.png)<br><sub>Material 3 DayNight dynamic colors</sub> |
-
----
 
 ## ✨ Features & Bonus Deliverables
 
